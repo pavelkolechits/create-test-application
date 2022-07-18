@@ -1,8 +1,11 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
+
 import {useAuthState} from "react-firebase-hooks/auth"
 import {useTypedSelector} from './hooks/useTypedSelector'
+import {useDispatch} from 'react-redux'
+
 
 firebase.initializeApp({
   apiKey: "AIzaSyCUb7UD3oYo1NuZmRaM-u-fP4ZhGfi7Pms",
@@ -14,19 +17,6 @@ firebase.initializeApp({
   measurementId: "G-CC44LJ7EYJ",
 });
 
-const auth = firebase.auth();
-const firestore = firebase.firestore();
+export const auth = firebase.auth();
+export const db = firebase.firestore();
 
-
-// const [user] = useAuthState(auth as any)
-// const state = useTypedSelector(i => i)
-
-
-
-
-// const signUp = async () => {
-//   const provider = new firebase.auth.GoogleAuthProvider()
-//   const {user} = await auth.signInWithPopup(provider)
-//   console.log(user)
-
-// }

@@ -1,0 +1,11 @@
+@import '../../App.scss';
+
+
+
+.container{
+    @include FlexCenter;
+    border: 1px solid #9c27b0;
+    height: 50vh;
+    margin: 10vh auto;
+    border-radius: 5px;
+}

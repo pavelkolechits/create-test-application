@@ -1,9 +1,8 @@
-import { composeWithDevTools } from "redux-devtools-extension";
 import { configureStore } from "@reduxjs/toolkit";
-import { createAnswerReducer } from "./reducers/createAnswerReducer";
+import { userReducer } from "./reducers/user.slice";
 
 export const store = configureStore({
-  reducer: { createAnswerReducer },
+  reducer: {userReducer}
 });
 
 export type RootState = ReturnType<typeof store.getState>;
