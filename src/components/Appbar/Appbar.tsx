@@ -6,18 +6,20 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import styles from "./appbar.module.scss";
-import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { useActions } from "../../hooks/useActions";
+import { Home } from "@mui/icons-material";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { IUser } from "../../types/user";
+import { UsersAvatar } from "../Avatar/Avatar";
 
 export const Appbar = () => {
-  const navigate = useNavigate();
-  const {deleteUser} = useActions()
+  const state: IUser = useTypedSelector((state) => state.userReducer);
+  const { deleteUser } = useActions();
 
   const logout = () => {
     auth.signOut();
-    navigate("/");
-    deleteUser()
+    deleteUser();
   };
 
   return (
@@ -32,15 +34,24 @@ export const Appbar = () => {
             sx={{ mr: 2 }}
           ></IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            {state.user ? (
+              <UsersAvatar
+                photo={state.user.photo}
+                userName={state.user.userName}
+              />
+            ) : (
+              <Home style={{ marginTop: "9px" }} fontSize="large" />
+            )}
           </Typography>
-          <Link className={styles.link} to="/login">
-            {" "}
-            <Button color="inherit">Login</Button>
-          </Link>
-          <Button onClick={logout} color="inherit">
-            Logout
-          </Button>
+          {state.user ? (
+            <Link onClick={logout} className={styles.link} to="/">
+              <Button color="inherit">Logout</Button>
+            </Link>
+          ) : (
+            <Link className={styles.link} to="/login">
+              <Button color="inherit">Login</Button>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
