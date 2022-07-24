@@ -1,32 +1,33 @@
-import React, { memo } from "react";
-import { db } from "../../firebase";
-import { useEffect } from "react";
+import React, { memo, useMemo } from "react";
+import { db, auth } from "../../firebase";
+import { useEffect, useState } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { collection, doc, setDoc, getDoc } from "firebase/firestore";
 import { IUser } from "../../types/user";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { UserMenu } from "../../components/UserMenu/UserMenu";
+import { Chat } from "../../components/Chat/Chat";
+import { email, photo, userName } from "../../firebase";
+import { useRef } from "react";
+import { useActions } from "../../hooks/useActions";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const UserPage = () => {
   const state: IUser = useTypedSelector((state) => state.userReducer);
-
-  const usersData: any = [];
-
-  const isValid = () => {
-    return !usersData.filter((i: any) => i.email === state.user?.email).length;
-  };
+  const [showChat, setShowChat] = useState(false);
+  const { getUser } = useActions();
 
   useEffect(() => {
-    
     if (state.user) {
       db.collection("users")
+        .doc(state.user?.email)
         .get()
-        .then((i) => i.forEach((i) => usersData.push(i.data())))
-        .then(() => {
-          if (isValid()) {
+        .then((doc) => {
+          if (!doc.exists) {
             db.collection("users").doc(state.user?.email).set({
               email: state.user?.email,
-              userName: state.user?.userName,
               photo: state.user?.photo,
-              id: state.user?.uid,
+              userName: state.user?.userName,
             });
           }
         })
@@ -37,8 +38,29 @@ export const UserPage = () => {
               start: new Date(),
             });
         });
+    } else {
+      if (state.user) {
+        db.collection("users").doc(state.user);
+      }
     }
   }, []);
+  const [user] = useAuthState(auth as any);
+  useEffect(() => {
+    if (!state.user?.email) {
+      getUser({
+        userName: user?.displayName,
+        photo: user?.photoURL,
+        email: user?.email,
+      });
+    }
+  },[user])
 
-  return <div>UserPage</div>;
+
+
+  return (
+    <>
+      <UserMenu setShowChat={setShowChat} />
+      {showChat && <Chat setShowChat={setShowChat} />}
+    </>
+  );
 };

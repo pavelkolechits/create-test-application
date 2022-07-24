@@ -1,0 +1,29 @@
+
+@keyframes menu-transform {
+    0% {
+        margin: 0 0 0 -100px;
+    }
+    100%{
+        margin: 0;
+    }
+    
+}
+
+
+
+
+
+.container{
+    width: 120px;
+    height: calc(100vh - 64px);
+    position: fixed;
+    left: 0;
+    // border: 1px solid #000;
+    animation: 1s  linear menu-transform ;
+    background-color: #00000070;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+}

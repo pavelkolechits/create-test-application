@@ -1,0 +1,44 @@
+@keyframes menu-transform {
+    0% {
+        margin: 0 -300px  0 0;
+    }
+    100%{
+        margin: 0;
+    }
+    
+}
+
+.container{
+    animation: 1s  linear menu-transform ;
+    width: 400px;
+    height: calc(100vh - 64px);
+    border: 1px solid #fff;
+    position: fixed;
+    right: 0;
+    background-color: rgba(193, 127, 255, .7);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+
+}
+.message-window{
+    width: 100%;
+    height: 70%;
+    border: 1px solid #fff;
+    background-color: #cccccc50;
+    border-radius: 5px;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    padding: 2px;
+    overflow-y: scroll;
+}
+.button-container{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 0 5px 0;
+}

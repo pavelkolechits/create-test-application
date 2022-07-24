@@ -19,4 +19,7 @@ firebase.initializeApp({
 
 export const auth = firebase.auth();
 export const db = firebase.firestore();
+export const email = auth.currentUser?.email;
+export const photo = auth.currentUser?.photoURL;
+export const userName = auth.currentUser?.displayName;
 

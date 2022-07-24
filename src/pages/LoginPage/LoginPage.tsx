@@ -12,12 +12,11 @@ export const LoginPage = () => {
   const { getUser } = useActions();
   const navigate = useNavigate();
 
-  const login = async () => {
+  const loginWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     const { user } = await auth.signInWithPopup(provider);
     
     getUser({
-      uid: user?.uid,
       userName: user?.displayName,
       photo: user?.photoURL,
       email: user?.email,
@@ -25,11 +24,13 @@ export const LoginPage = () => {
     navigate("/" + user?.displayName);
   };
 
+
   return (
     <Grid className={styles.container} maxWidth="sm">
-      <Button onClick={login} variant="outlined" color="secondary">
+      <Button onClick={loginWithGoogle} variant="outlined" color="secondary">
         Login with Google
       </Button>
+     
     </Grid>
   );
 };

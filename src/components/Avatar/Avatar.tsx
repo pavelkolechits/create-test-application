@@ -3,8 +3,8 @@ import { FC } from "react";
 import styles from "./avatar.module.scss";
 
 interface IAvatarProps {
-  photo: string;
-  userName: string;
+  photo: string  ;
+  userName: string ;
 }
 
 export const UsersAvatar: FC<IAvatarProps> = ({ photo, userName }) => {
