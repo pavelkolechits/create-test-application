@@ -26,56 +26,80 @@ export const Chat: FC<IChatProps> = ({ setShowChat }) => {
     db.collection("messages").orderBy("createdAt") as any
   );
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
   };
+  const getDate = (date: number) => {
+
+     return {
+      day: new Date(date).getDay(),
+      hour: new Date(date).getHours(),
+      minutes: new Date(date).getMinutes(),
+      month: new Date(date).getMonth(),
+      dayOfMonth: new Date(date).getUTCDate()
+
+     } 
+     
+
+  }
 
   const onClickHandler = () => {
+    if(!value.trim().length){
+      return
+    }
     db.collection("messages").add({
       user: state.user?.userName,
       photo: state.user?.photo,
       text: value,
       createdAt: new Date().getTime(),
-      email: state.user?.email
+      email: state.user?.email,
     });
     setValue("");
   };
-  console.log(messages)
+  console.log(messages, );
   return (
     <div className={styles.container}>
       <div className={styles["message-window"]}>
-        {messages?.map((i) => (
-         
+        <div className={styles["message-container"]}>
+          {messages?.map((i) => (
             <Message
-              key={i.createdAt.seconds}
+              key={i.createdAt}
               photo={i.photo}
               userName={i.user}
               message={i.text}
               isYou={state.user?.email === i.email}
-              createdAt={i.createdAt.seconds}
+              createdAt={ getDate(i.createdAt)}
             />
-          
-        ))}
-       
+          ))}
+        </div>
       </div>
-      <TextField
-        color="secondary"
-        style={{ width: "100%" }}
+      <textarea
+        rows={5}
+        value={value}
+        onChange={onChangeHandler}
+        className={styles["text-field"]}
+      ></textarea>
+      {/* <TextField
+      className={styles["text-field"]}
+      sx={{
+        color: "#ccc"
+      }}
+        style={{ width: "100%", color: "#ccc" }}
         id="outlined-multiline-static"
         multiline
         rows={5}
         value={value}
         onChange={onChangeHandler}
-      />
+      /> */}
       <div className={styles["button-container"]}>
         <Button
+        className={styles["close-button"]}
           onClick={() => setShowChat(false)}
-          color="success"
           variant="contained"
         >
           close
         </Button>
-        <Button onClick={onClickHandler} color="success" variant="contained">
+        <Button className={styles["send-message-button"]} onClick={onClickHandler}  variant="contained">
           send
         </Button>
       </div>

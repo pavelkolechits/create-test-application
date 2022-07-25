@@ -27,7 +27,7 @@ export const LoginPage = () => {
 
   return (
     <Grid className={styles.container} maxWidth="sm">
-      <Button onClick={loginWithGoogle} variant="outlined" color="secondary">
+      <Button className={styles["login-button"]} onClick={loginWithGoogle} variant="outlined" >
         Login with Google
       </Button>
      

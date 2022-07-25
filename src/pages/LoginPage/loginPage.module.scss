@@ -4,8 +4,13 @@
 
 .container{
     @include FlexCenter;
-    border: 1px solid #d9b0e0;
+    border: 1px solid #4158a7;
     height: 50vh;
     margin: 10vh auto;
     border-radius: 5px;
+    background-color: #0a1c2a;
+}
+.login-button{
+    color: #fff;
+    background-color: #212e5a;
 }

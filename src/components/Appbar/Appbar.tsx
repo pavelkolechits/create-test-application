@@ -29,7 +29,8 @@ export const Appbar = () => {
    
     <Box  sx={{ flexGrow: 1 }}>
      
-      <AppBar  color={"secondary"} position="static">
+      <AppBar 
+       className={styles.appbar}   position="static">
   
         <Toolbar>
           <IconButton
