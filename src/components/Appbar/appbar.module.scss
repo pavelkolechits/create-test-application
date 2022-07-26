@@ -5,9 +5,7 @@
 .link {
   @include LinkStyles($main-color);
 }
-.appbar{
-  background-color: rgb(13, 9, 58);
+
+.MuiAppBar-root{
+  background-color: rgb(13, 8, 68)!important
 }
-// .css-hyum1k-MuiToolbar-root{
-//   background-color: rgb(13, 9, 58);
-// }

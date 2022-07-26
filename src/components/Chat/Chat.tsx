@@ -1,13 +1,14 @@
 import styles from "./chat.module.scss";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { db } from "../../firebase";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { IUser } from "../../types/user";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Message } from "../Message/Message";
 import firebase from "firebase/compat/app";
+import { style } from "@mui/system";
 
 interface IUserMessage {
   user: string;
@@ -25,27 +26,32 @@ export const Chat: FC<IChatProps> = ({ setShowChat }) => {
   const [messages, loading] = useCollectionData(
     db.collection("messages").orderBy("createdAt") as any
   );
+  const [closeAnimation, setCloseAnimation] = useState(false)
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
   };
   const getDate = (date: number) => {
-
-     return {
+    return {
       day: new Date(date).getDay(),
       hour: new Date(date).getHours(),
       minutes: new Date(date).getMinutes(),
       month: new Date(date).getMonth(),
-      dayOfMonth: new Date(date).getUTCDate()
+      dayOfMonth: new Date(date).getUTCDate(),
+    };
+  };
+  const closeChat = () => {
+    setCloseAnimation(true)
+    setTimeout(() => {
+      setShowChat(false)
+      setCloseAnimation(false)
 
-     } 
-     
-
+    },500)
   }
 
-  const onClickHandler = () => {
-    if(!value.trim().length){
-      return
+  const sendMessage = () => {
+    if (!value.trim().length) {
+      return;
     }
     db.collection("messages").add({
       user: state.user?.userName,
@@ -55,10 +61,19 @@ export const Chat: FC<IChatProps> = ({ setShowChat }) => {
       email: state.user?.email,
     });
     setValue("");
+
+  }
+  const enterHandler = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if(event.key === "Enter"){
+      sendMessage()
+    }
+  }
+
+  const onClickHandler = () => {
+    sendMessage()
   };
-  console.log(messages, );
   return (
-    <div className={styles.container}>
+    <div className={!closeAnimation ? styles["show-chat"] : styles["close-chat"] }>
       <div className={styles["message-window"]}>
         <div className={styles["message-container"]}>
           {messages?.map((i) => (
@@ -68,38 +83,35 @@ export const Chat: FC<IChatProps> = ({ setShowChat }) => {
               userName={i.user}
               message={i.text}
               isYou={state.user?.email === i.email}
-              createdAt={ getDate(i.createdAt)}
+              createdAt={getDate(i.createdAt)}
             />
           ))}
         </div>
       </div>
       <textarea
+      onKeyDown={enterHandler}
         rows={5}
         value={value}
         onChange={onChangeHandler}
         className={styles["text-field"]}
       ></textarea>
-      {/* <TextField
-      className={styles["text-field"]}
-      sx={{
-        color: "#ccc"
-      }}
-        style={{ width: "100%", color: "#ccc" }}
-        id="outlined-multiline-static"
-        multiline
-        rows={5}
-        value={value}
-        onChange={onChangeHandler}
-      /> */}
       <div className={styles["button-container"]}>
         <Button
-        className={styles["close-button"]}
-          onClick={() => setShowChat(false)}
+          style={{ backgroundColor: "rgb(15, 62, 94)" }}
+          onClick={closeChat}
           variant="contained"
         >
           close
         </Button>
-        <Button className={styles["send-message-button"]} onClick={onClickHandler}  variant="contained">
+        <Button
+          style={{
+            width: "80%",
+            marginLeft: "5px",
+            backgroundColor: "rgb(15, 62, 94)",
+          }}
+          onClick={onClickHandler}
+          variant="contained"
+        >
           send
         </Button>
       </div>

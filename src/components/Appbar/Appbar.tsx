@@ -11,27 +11,21 @@ import { useActions } from "../../hooks/useActions";
 import { Home } from "@mui/icons-material";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { IUser } from "../../types/user";
-import { UsersAvatar } from "../Avatar/Avatar";
-import { photo, userName } from '../../firebase'
-import { ThemeProvider } from "@mui/material";
+import { UsersAvatar } from "../Avatar/UsersAvatar";
+import { photo, userName } from "../../firebase";
 
 export const Appbar = () => {
   const state: IUser = useTypedSelector((state) => state.userReducer);
   const { deleteUser } = useActions();
 
-
   const logout = () => {
     auth.signOut();
     deleteUser();
   };
-
-  return (
-   
-    <Box  sx={{ flexGrow: 1 }}>
-     
-      <AppBar 
-       className={styles.appbar}   position="static">
   
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar style={{ backgroundColor: "rgb(13, 8, 68)" }} position="static">
         <Toolbar>
           <IconButton
             size="large"
@@ -43,7 +37,7 @@ export const Appbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {state.user ? (
               <UsersAvatar
-                photo={state.user.photo }
+                photo={state.user.photo}
                 userName={state.user.userName}
               />
             ) : (
@@ -58,14 +52,9 @@ export const Appbar = () => {
             <Link className={styles.link} to="/login">
               <Button color="inherit">Login</Button>
             </Link>
-          
           )}
-          <Link className={styles.link} to="/test">
-          <Button color="inherit">test</Button>
-        </Link>
         </Toolbar>
       </AppBar>
     </Box>
-   
   );
 };

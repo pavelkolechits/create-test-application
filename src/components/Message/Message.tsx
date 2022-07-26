@@ -7,7 +7,7 @@ interface IMessageProps {
   photo: string;
   userName: string;
   message: string;
-  createdAt?: DateConstructor | any;
+  createdAt?: any;
   isYou?: boolean;
 }
 

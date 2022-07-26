@@ -11,10 +11,13 @@ import { email, photo, userName } from "../../firebase";
 import { useRef } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Help } from "../../components/Help/Help";
+
 
 export const UserPage = () => {
   const state: IUser = useTypedSelector((state) => state.userReducer);
   const [showChat, setShowChat] = useState(false);
+  const [showHelp, setShowHelp] = useState(false)
   const { getUser } = useActions();
 
   useEffect(() => {
@@ -59,7 +62,8 @@ export const UserPage = () => {
 
   return (
     <>
-      <UserMenu setShowChat={setShowChat} />
+    {showHelp && <Help setShowHelp={setShowHelp}/>}
+      <UserMenu setShowHelp={setShowHelp} setShowChat={setShowChat} />
       {showChat && <Chat setShowChat={setShowChat} />}
     </>
   );

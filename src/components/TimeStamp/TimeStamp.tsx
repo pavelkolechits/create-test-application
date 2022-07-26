@@ -10,11 +10,27 @@ interface ITimeStampProps {
   };
 }
 
-export const TimeStamp: FC<ITimeStampProps> = ({ time }) => {
-    
-  const date = `${time.hour < 10 ? "0" + time.hour : time.hour}:${
-    time.minutes < 10 ? "0" + time.minutes : time.minutes
-  }  ${time.day === 1 ? "today" : time.dayOfMonth + "." + time.month}`;
+const formatTime = (time: number) => {
+  return time < 10 ? "0" + time : time;
+};
 
-  return <div style={{padding: "2px", fontSize: "10px", width: "19%", color: "#ccc"}}>{date}</div>;
+const getDate = (day: number, month: number) => {
+  return day === new Date().getUTCDate()
+    ? "today"
+    : formatTime(day) + "." + formatTime(month);
+};
+
+export const TimeStamp: FC<ITimeStampProps> = ({ time }) => {
+  const date = `${formatTime(time.hour)}:${formatTime(time.minutes)}  ${getDate(
+    time.dayOfMonth,
+    time.month
+  )}`;
+
+  return (
+    <div
+      style={{ padding: "2px", fontSize: "10px", width: "19%", color: "#ccc" }}
+    >
+      {date}
+    </div>
+  );
 };
