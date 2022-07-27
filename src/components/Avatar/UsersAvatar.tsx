@@ -8,6 +8,7 @@ interface IAvatarProps {
 }
 
 export const UsersAvatar: FC<IAvatarProps> = ({ photo, userName }) => {
+  console.log(photo)
   return (
     <div className={styles.container}>
       <Avatar sizes="large" src={photo} />

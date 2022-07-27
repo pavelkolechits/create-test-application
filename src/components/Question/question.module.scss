@@ -1,0 +1,19 @@
+.container{
+    width: 100%;
+    min-height: 70%;
+    border: 1px solid #000;
+    margin: 10px 0 0 0;
+    padding: 5px;
+}
+.question{
+    width: 100%;
+    min-height: 50px ;
+    display: flex;
+
+}
+.question-text{
+    width: 80%;
+    height: 100%;
+    padding: 5px;
+    border: 1px solid #000;
+}

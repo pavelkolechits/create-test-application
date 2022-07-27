@@ -16,8 +16,8 @@ export const Help: FC<IHelpProps> = ({ setShowHelp }) => {
         onClick={() => setShowHelp(false)}
         style={{
           position: "absolute",
-          left: "20px",
-          top: "20px",
+          left: "21px",
+          top: "300px",
           color: "#fff",
         }}
         
