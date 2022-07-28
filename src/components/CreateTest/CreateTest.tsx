@@ -12,21 +12,20 @@ export const CreateTest = () => {
   const [value, setValue] = useState("");
   const { createQuestion } = useActions();
   const [testNumber, setTestNumber] = useState(0);
-  const test = useTypedSelector(i => i.testReducer.test)
+  const test = useTypedSelector((i) => i.testReducer.test);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
   const enterHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-   
     if (value.trim().length && e.key === "Enter") {
-      e.preventDefault()
+      e.preventDefault();
       createQuestion({
         question: value,
         answers: [],
         questionId: getId(),
       });
-      setValue('')
+      setValue("");
     }
     return;
   };
@@ -48,7 +47,15 @@ export const CreateTest = () => {
           className: styles.input,
         }}
       />
-     {test.length ? <Question question={test[testNumber].question} answers={test[testNumber].answers} id={test[testNumber].questionId}/> : ""} 
+      {test.length ? (
+        <Question
+          question={test[testNumber].question}
+          answers={test[testNumber].answers}
+          id={test[testNumber].questionId}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

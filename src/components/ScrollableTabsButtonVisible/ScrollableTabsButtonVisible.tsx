@@ -42,6 +42,7 @@ export const ScrollableTabsButtonVisible: FC<ITabsProps> = ({
       >
         {questons.map((_, index) => (
           <Tab
+          key={index}
             onClick={() => setTestNumber(index)}
             style={{ fontSize: "20px" }}
             label={index + 1}
