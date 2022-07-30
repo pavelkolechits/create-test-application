@@ -14,9 +14,22 @@ export const LoginPage = () => {
 
   const loginWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    alert(provider)
+    
     const { user } = await auth.signInWithPopup(provider);
-    alert (user)
+   
+    
+    getUser({
+      userName: user?.displayName,
+      photo: user?.photoURL,
+      email: user?.email,
+    });
+    navigate("/" + user?.displayName);
+  };
+  const loginWithFacebook = async () => {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    
+    const { user } = await auth.signInWithPopup(provider);
+   
     
     getUser({
       userName: user?.displayName,
@@ -31,6 +44,9 @@ export const LoginPage = () => {
     <Grid className={styles.container} maxWidth="sm">
       <Button className={styles["login-button"]} onClick={loginWithGoogle} variant="outlined" >
         Login with Google
+      </Button>
+      <Button className={styles["login-button"]} onClick={loginWithFacebook} variant="outlined" >
+        Login with Facebook
       </Button>
      
     </Grid>
