@@ -22,6 +22,7 @@ export const LoginPage = () => {
       userName: user?.displayName,
       photo: user?.photoURL,
       email: user?.email,
+      uid: user?.uid
     });
     navigate("/" + user?.displayName);
   };
