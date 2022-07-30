@@ -14,7 +14,9 @@ export const LoginPage = () => {
 
   const loginWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
+    alert(provider)
     const { user } = await auth.signInWithPopup(provider);
+    alert (user)
     
     getUser({
       userName: user?.displayName,
