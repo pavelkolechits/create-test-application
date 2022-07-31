@@ -1,14 +1,17 @@
-@import '../../App.scss';
+
 
 
 
 .container{
-    @include FlexCenter;
     border: 1px solid #4158a7;
     height: 50vh;
     margin: 10vh auto;
     border-radius: 5px;
     background-color: #0a1c2a;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
 }
 .login-button{
     color: #fff;

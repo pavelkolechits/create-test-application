@@ -33,6 +33,7 @@ export const UserPage = () => {
               email: state.user?.email,
               photo: state.user?.photo,
               userName: state.user?.userName,
+              uid: state.user
             });
           }
         })

@@ -49,7 +49,12 @@ export const testSlice = createSlice({
             }
           : i
       );
-      console.log(updatedQuestion)
+      return { ...state, test: updatedQuestion };
+    },
+    deleteQuestion: (state, { payload }) => {
+      const updatedQuestion = state.test.filter(
+        (i) => i.questionId !== payload.questionId
+      );
       return { ...state, test: updatedQuestion };
     },
   },

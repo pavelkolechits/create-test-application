@@ -6,18 +6,22 @@ import { FC, useState } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 interface ITabsProps {
-  setTestNumber: (index: number) => void;
+  setQuestionId: (questionId: string) => void;
 }
 
 export const ScrollableTabsButtonVisible: FC<ITabsProps> = ({
-  setTestNumber,
+  setQuestionId,
 }) => {
   const [value, setValue] = useState(0);
   const questons = useTypedSelector((i) => i.testReducer.test);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+  const onClickHandler = (i: number , id: string) => {
+    setValue(i);
+    setQuestionId(id)
+  }
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => setValue(newValue);
+  
   return (
     <Box
       sx={{
@@ -34,18 +38,19 @@ export const ScrollableTabsButtonVisible: FC<ITabsProps> = ({
       </span>
 
       <Tabs
+      
         value={value}
         onChange={handleChange}
         variant="scrollable"
         scrollButtons
         aria-label="visible arrows tabs example"
       >
-        {questons.map((_, index) => (
-          <Tab
-          key={index}
-            onClick={() => setTestNumber(index)}
+        {questons.map((i, index) => (
+          <Tab 
+            key={index}
+            onClick={() => setQuestionId(i.questionId)}
             style={{ fontSize: "20px" }}
-            label={index + 1}
+            label={i.questionId}
           />
         ))}
       </Tabs>

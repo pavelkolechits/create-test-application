@@ -6,6 +6,8 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import AddCircleOutlineTwoToneIcon from "@mui/icons-material/AddCircleOutlineTwoTone";
 import { EditArea } from "../EditArea/EditArea";
 import { AddAnswerArea } from "../AddAnsverArea/AddAnswerArea";
+import { AnswerItem } from "../AnswerItem/AnswerItem";
+import { useActions } from "../../hooks/useActions";
 
 interface IQuestionProps {
   question: string;
@@ -16,7 +18,7 @@ interface IQuestionProps {
 export const Question: FC<IQuestionProps> = ({ question, answers, id }) => {
   const [showEditArea, setShowEditArea] = useState(false);
   const [showAddAnswerArea, setShowAddAnswerArea] = useState(false);
-
+  const { deleteQuestion } = useActions();
   return (
     <div className={styles.container}>
       <div className={styles.question}>
@@ -38,7 +40,10 @@ export const Question: FC<IQuestionProps> = ({ question, answers, id }) => {
             <EditTwoToneIcon style={{ fontSize: "40px", color: "green" }} />
           </button>
 
-          <button style={{ margin: "5px" }}>
+          <button
+            onClick={() => deleteQuestion({ questionId: id })}
+            style={{ margin: "5px" }}
+          >
             <DeleteTwoToneIcon style={{ fontSize: "40px", color: "red" }} />
           </button>
           <button
@@ -57,7 +62,11 @@ export const Question: FC<IQuestionProps> = ({ question, answers, id }) => {
           setShowAddAnswerArea={setShowAddAnswerArea}
         />
       )}
-      <div className={styles.answers}>{answers.map((i) => i.answer)}</div>
+      <div className={styles.answers}>
+        {answers.map((i) => (
+          <AnswerItem key={i.answerId} text={i.answer} />
+        ))}
+      </div>
     </div>
   );
 };

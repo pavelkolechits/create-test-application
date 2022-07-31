@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent } from "react";
+import React, { ChangeEvent, KeyboardEvent , useRef} from "react";
 import styles from "./createTest.module.scss";
 import { TextField } from "@mui/material";
 import { ScrollableTabsButtonVisible } from "../ScrollableTabsButtonVisible/ScrollableTabsButtonVisible";
@@ -11,8 +11,11 @@ import { Question } from "../Question/Question";
 export const CreateTest = () => {
   const [value, setValue] = useState("");
   const { createQuestion } = useActions();
-  const [testNumber, setTestNumber] = useState(0);
+  const [Id, setQuestionId] = useState("");
+
   const test = useTypedSelector((i) => i.testReducer.test);
+
+  const ref = test.filter(i => i.questionId === Id) 
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -32,7 +35,7 @@ export const CreateTest = () => {
 
   return (
     <div className={styles.container}>
-      <ScrollableTabsButtonVisible setTestNumber={setTestNumber} />
+      <ScrollableTabsButtonVisible setQuestionId={setQuestionId} />
       <TextField
         onChange={onChangeHandler}
         onKeyDown={enterHandler}
@@ -47,14 +50,21 @@ export const CreateTest = () => {
           className: styles.input,
         }}
       />
-      {test.length ? (
+      
+      {ref.length ? (
+
         <Question
-          question={test[testNumber].question}
-          answers={test[testNumber].answers}
-          id={test[testNumber].questionId}
+          question={ref[0].question}
+          answers={ref[0].answers}
+          id={ref[0].questionId}
         />
       ) : (
-        ""
+        test.length ?
+        <Question
+        question={test[0].question}
+        answers={test[0].answers}
+        id={test[0].questionId}
+      /> : ""
       )}
     </div>
   );
