@@ -50,7 +50,7 @@ export const ScrollableTabsButtonVisible: FC<ITabsProps> = ({
             key={index}
             onClick={() => setQuestionId(i.questionId)}
             style={{ fontSize: "20px" }}
-            label={i.questionId}
+            label={index + 1}
           />
         ))}
       </Tabs>

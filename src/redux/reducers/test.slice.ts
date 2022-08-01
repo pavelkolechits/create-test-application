@@ -57,6 +57,53 @@ export const testSlice = createSlice({
       );
       return { ...state, test: updatedQuestion };
     },
+    deleteAnswer: (state, { payload }) => {
+      const updatedQuestion = state.test.map((i) =>
+        i.questionId === payload.questionId
+          ? {
+              ...i,
+              answers: [
+                ...i.answers.filter((i) => i.answerId !== payload.answerId),
+              ],
+            }
+          : i
+      );
+      return { ...state, test: updatedQuestion };
+    },
+    selectRightAnswer: (state, { payload }) => {
+      const updatedQuestion = state.test.map((i) =>
+        i.questionId === payload.questionId
+          ? {
+              ...i,
+              answers: [
+                ...i.answers.map((i) =>
+                  i.answerId === payload.answerId
+                    ? { ...i, isCorrect: !i.isCorrect }
+                    : i
+                ),
+              ],
+            }
+          : i
+      );
+      return { ...state, test: updatedQuestion };
+    },
+    editAnswer: (state, { payload }) => {
+      const updatedQuestion = state.test.map((i) =>
+        i.questionId === payload.questionId
+          ? {
+              ...i,
+              answers: [
+                ...i.answers.map((i) =>
+                  i.answerId === payload.answerId
+                    ? { ...i, answer: payload.answer }
+                    : i
+                ),
+              ],
+            }
+          : i
+      );
+      return { ...state, test: updatedQuestion };
+    },
   },
 });
 
