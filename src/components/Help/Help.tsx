@@ -17,7 +17,7 @@ export const Help: FC<IHelpProps> = ({ setShowHelp }) => {
         style={{
           position: "absolute",
           left: "21px",
-          top: "300px",
+          bottom: "100px",
           color: "#fff",
         }}
         

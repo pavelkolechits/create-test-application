@@ -66,7 +66,7 @@ export const UserPage = () => {
   return (
     <>
   
-      <UserMenu setShowCreateTest={setShowCreateTest} setShowHelp={setShowHelp} setShowChat={setShowChat} />
+      <UserMenu showCreateTest={showCreateTest} setShowCreateTest={setShowCreateTest} setShowHelp={setShowHelp} setShowChat={setShowChat} />
       {showChat && <Chat setShowChat={setShowChat} />}
       {showHelp && <Help setShowHelp={setShowHelp}/>}
       {showCreateTest && <CreateTest/> }
