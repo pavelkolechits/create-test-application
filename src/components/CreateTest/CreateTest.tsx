@@ -7,15 +7,20 @@ import { useActions } from "../../hooks/useActions";
 import { getId } from "../../helpers/getId";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { Question } from "../Question/Question";
+import { useNavigate } from "react-router-dom";
+import { SaveTestOptions } from "../SaveTestOptions/SaveTestOptions";
+import { Link } from "react-router-dom";
+import { IUser } from "../../types/user";
+
 
 export const CreateTest = () => {
   const [value, setValue] = useState("");
   const { createQuestion } = useActions();
   const [Id, setQuestionId] = useState("");
-
+  const navigate = useNavigate()
   const test = useTypedSelector((i) => i.testReducer.test);
-
-  const ref = test.filter(i => i.questionId === Id) 
+  const state: IUser = useTypedSelector((state) => state.userReducer);
+  const currentTest = test.filter(i => i.questionId === Id) 
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -35,6 +40,10 @@ export const CreateTest = () => {
 
   return (
     <div className={styles.container}>
+      <button onClick={() => navigate(-1)}>go back</button>
+
+      <Link to={`/${state.user?.userName}/save-options`}>save </Link>
+      
       <ScrollableTabsButtonVisible setQuestionId={setQuestionId} />
       <TextField
         onChange={onChangeHandler}
@@ -51,14 +60,15 @@ export const CreateTest = () => {
         }}
       />
       
-      {ref.length ? (
+      {currentTest.length ? (
 
         <Question
-          question={ref[0].question}
-          answers={ref[0].answers}
-          id={ref[0].questionId}
+          question={currentTest[0].question}
+          answers={currentTest[0].answers}
+          id={currentTest[0].questionId}
         />
       ) : (
+        
         test.length ?
         <Question
         question={test[0].question}
@@ -66,6 +76,8 @@ export const CreateTest = () => {
         id={test[0].questionId}
       /> : ""
       )}
+
+
     </div>
   );
 };

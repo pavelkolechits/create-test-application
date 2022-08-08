@@ -1,30 +1,28 @@
 import React, { FC } from "react";
 import styles from "./help.module.scss";
 import { Button } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 
-interface IHelpProps {
-  setShowHelp: (isShowed: boolean) => void;
-}
 
-export const Help: FC<IHelpProps> = ({ setShowHelp }) => {
+
+export const Help = () => {
+  const navigate = useNavigate()
   return (
     <div className={styles.container}>
       <div className={styles["modal-window"]}>
         some text
-      </div>
-      <Button
-        onClick={() => setShowHelp(false)}
-        style={{
-          position: "absolute",
-          left: "21px",
-          bottom: "100px",
-          color: "#fff",
-        }}
-        
+        <Button
+        onClick={() => navigate(-1)}
+
         variant="text"
       >
-        Go back
+        {/* <Link to="-1"> */}
+          Go back
+          {/* </Link> */}
+        
       </Button>
+      </div>
+   
     </div>
   );
 };

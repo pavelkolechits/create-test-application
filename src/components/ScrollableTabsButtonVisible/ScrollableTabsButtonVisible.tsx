@@ -15,10 +15,10 @@ export const ScrollableTabsButtonVisible: FC<ITabsProps> = ({
   const [value, setValue] = useState(0);
   const questons = useTypedSelector((i) => i.testReducer.test);
 
-  const onClickHandler = (i: number , id: string) => {
-    setValue(i);
-    setQuestionId(id)
-  }
+  // const onClickHandler = (i: number , id: string) => {
+  //   setValue(i);
+  //   setQuestionId(id)
+  // }
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => setValue(newValue);
   

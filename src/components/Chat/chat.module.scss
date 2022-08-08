@@ -1,9 +1,14 @@
 @keyframes showChat {
   0% {
-    margin: 0 -300px 0 0;
+    
+    opacity: 0;
+  }
+  50% {
+    opacity: .5
   }
   100% {
-    margin: 0;
+    
+    opacity: 1;
   }
 }
 @keyframes closeChat {
@@ -33,7 +38,7 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 5px;
-  
+  z-index: 1000;
 }
 
 .show-chat{
@@ -43,21 +48,7 @@
   @include chat(closeChat)
 }
 
-// .container {
-//   animation: 0.5s linear showChat;
-//   width: 400px;
-//   height: calc(100vh - 64px);
-//   border: 1px solid #fff;
-//   position: fixed;
-//   right: 0;
-//   background-color: rgba(0, 0, 0, 0.7);
-//   padding: 5px;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-between;
-//   border-radius: 5px;
-// }
+
 .message-window {
   width: 100%;
   height: 70%;

@@ -56,13 +56,14 @@ export const Question: FC<IQuestionProps> = ({ question, answers, id }) => {
           </button>
         </div>
       </div>
+   
+      <div className={styles.answers}>
       {showAddAnswerArea && (
         <AddAnswerArea
           questionId={id}
           setShowAddAnswerArea={setShowAddAnswerArea}
         />
       )}
-      <div className={styles.answers}>
         {answers.map((i) => (
           <AnswerItem isChecked={i.isCorrect} answerId={i.answerId} questionId={id} key={i.answerId} text={i.answer} />
         ))}

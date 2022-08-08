@@ -5,6 +5,9 @@ const initialState: ITest = {
   testId: null,
   test: [],
   testName: null,
+  isPrivate: false,
+  createdAt: null,
+  description: null,
 };
 
 interface IEditQuestionAction {
@@ -14,6 +17,16 @@ interface IEditQuestionAction {
 interface IAddAnswerAction {
   type: string;
   payload: { answer: string; questionId: string; answerId: string };
+}
+interface ISaveTestAction {
+  type: string;
+  payload: {
+    testId: string;
+    testName: string;
+    isPrivate: boolean;
+    createdAt: string;
+    description: string;
+  };
 }
 
 export const testSlice = createSlice({
@@ -103,6 +116,16 @@ export const testSlice = createSlice({
           : i
       );
       return { ...state, test: updatedQuestion };
+    },
+    saveTest: (state, { payload }) => {
+      return {
+        ...state,
+        testName: payload.testName,
+        testId: payload.testId,
+        isPrivate: payload.isPrivate,
+        createdAt: payload.createdAt,
+        description: payload.description
+      };
     },
   },
 });

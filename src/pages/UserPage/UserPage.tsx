@@ -13,14 +13,15 @@ import { useActions } from "../../hooks/useActions";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Help } from "../../components/Help/Help";
 import { CreateTest } from "../../components/CreateTest/CreateTest";
-
+import { SaveTestOptions } from "../../components/SaveTestOptions/SaveTestOptions";
+import { Link } from "react-router-dom";
 
 export const UserPage = () => {
   const state: IUser = useTypedSelector((state) => state.userReducer);
   const [showChat, setShowChat] = useState(false);
-  const [showHelp, setShowHelp] = useState(false)
-  const [showCreateTest, setShowCreateTest] = useState(false)
+  const [showCreateTest, setShowCreateTest] = useState(false);
   const { getUser } = useActions();
+  const [showSaveTestOption, setShowSaveTestOption] = useState(false);
 
   useEffect(() => {
     if (state.user) {
@@ -33,7 +34,7 @@ export const UserPage = () => {
               email: state.user?.email,
               photo: state.user?.photo,
               userName: state.user?.userName,
-              uid: state.user
+              uid: state.user,
             });
           }
         })
@@ -59,18 +60,21 @@ export const UserPage = () => {
         email: user?.email,
       });
     }
-  },[user])
-
-
+  }, [user]);
 
   return (
     <>
-  
-      <UserMenu showCreateTest={showCreateTest} setShowCreateTest={setShowCreateTest} setShowHelp={setShowHelp} setShowChat={setShowChat} />
+     
+      <UserMenu
+        setShowSaveTestOption={setShowSaveTestOption}
+        showCreateTest={showCreateTest}
+        setShowCreateTest={setShowCreateTest}
+        setShowChat={setShowChat}
+      />
       {showChat && <Chat setShowChat={setShowChat} />}
-      {showHelp && <Help setShowHelp={setShowHelp}/>}
-      {showCreateTest && <CreateTest/> }
-    
+      {showSaveTestOption && <SaveTestOptions/>}
+      {showCreateTest && <CreateTest />}
+     
     </>
   );
 };
