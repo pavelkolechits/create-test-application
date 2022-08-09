@@ -3,7 +3,7 @@ import { Layout } from "./components/Layout/Layout";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { UserPage } from "./pages/UserPage/UserPage";
-import { TestPage } from "./pages/TestPage";
+import { TestsPage } from "./pages/TestsPage/TestsPage";
 import { CreateTest } from "./components/CreateTest/CreateTest";
 import { UserPageLayout } from "./components/UserPageLayout/UserPageLayout";
 import { Help } from "./components/Help/Help";
@@ -22,6 +22,7 @@ export const App = () => {
           <Route path="/:user/create-test" element={<CreateTest />} />
           <Route path="/:user/help" element={<Help />} />
           <Route path="/:user/save-options" element={<SaveTestOptions />} />
+          <Route path="/:user/tests-page" element={<TestsPage />} />
         </Route >
       </Route>
     </Routes>

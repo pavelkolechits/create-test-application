@@ -18,15 +18,13 @@ import { db } from "../../firebase";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { IUser } from "../../types/user";
 
-
-
 export const SaveTestOptions = () => {
-  const { saveTest } = useActions();
+  const { saveTest, deleteTest } = useActions();
   const [labelValue, setLabelValue] = useState("");
   const [descriptionValue, setDescriptionValue] = useState("");
   const [testNameValue, setTestNameValue] = useState("");
-  const state: IUser = useTypedSelector(i => i.userReducer)
-  const test = useTypedSelector(i => i.testReducer)
+  const state: IUser = useTypedSelector((i) => i.userReducer);
+  const test = useTypedSelector((i) => i.testReducer.test);
 
   const onChangeRadioHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setLabelValue(e.target.value);
@@ -37,16 +35,18 @@ export const SaveTestOptions = () => {
   const onChangeDescriptionHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setDescriptionValue(e.target.value);
   };
-  const saveTestHandler =  () => {
-    saveTest({
-      testName: testNameValue,
-      testId: getId(),
-      isPrivate: labelValue === "Private",
-      createdAt: new Date().getTime(),
-      description: descriptionValue,
-    });
-     db.collection("users/" + state.user?.email + "/tests").add(test)
-
+  const saveTestHandler = () => {
+    db.collection("users/" + state.user?.email + "/tests")
+      .add({
+        test: test,
+        testName: testNameValue,
+        testId: getId(),
+        isPrivate: labelValue === "Private",
+        createdAt: new Date().getTime(),
+        description: descriptionValue,
+      })
+      .then(() => navigate(`/${state.user?.userName}/tests-page`))
+      .then(() => deleteTest());
   };
 
   const navigate = useNavigate();

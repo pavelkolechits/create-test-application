@@ -26,19 +26,6 @@ export const LoginPage = () => {
     });
     navigate("/" + user?.displayName);
   };
-  const loginWithFacebook = async () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    
-    const { user } = await auth.signInWithPopup(provider);
-   
-    
-    getUser({
-      userName: user?.displayName,
-      photo: user?.photoURL,
-      email: user?.email,
-    });
-    navigate("/" + user?.displayName);
-  };
 
 
   return (
@@ -46,9 +33,7 @@ export const LoginPage = () => {
       <Button className={styles["login-button"]} onClick={loginWithGoogle} variant="outlined" >
         Login with Google
       </Button>
-      <Button className={styles["login-button"]} onClick={loginWithFacebook} variant="outlined" >
-        Login with Facebook
-      </Button>
+  
      
     </Grid>
   );

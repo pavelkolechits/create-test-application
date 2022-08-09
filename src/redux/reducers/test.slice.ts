@@ -18,16 +18,6 @@ interface IAddAnswerAction {
   type: string;
   payload: { answer: string; questionId: string; answerId: string };
 }
-interface ISaveTestAction {
-  type: string;
-  payload: {
-    testId: string;
-    testName: string;
-    isPrivate: boolean;
-    createdAt: string;
-    description: string;
-  };
-}
 
 export const testSlice = createSlice({
   name: "test",
@@ -127,6 +117,9 @@ export const testSlice = createSlice({
         description: payload.description
       };
     },
+    deleteTest: () => {
+          return initialState
+    }
   },
 });
 

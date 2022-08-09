@@ -46,26 +46,9 @@ export const UserMenu: FC<IUserMenuProps> = ({
         
       </Button>
       <Button style={{ marginTop: "30px" }} variant="text">
-        my tests
+      <Link to={`/${user.user?.userName}/tests-page`}> my tests</Link>
       </Button>
-      {showCreateTest && (
-        <Button
-          onClick={saveTestOnClickHandler}
-          style={{ marginTop: "30px", color: "green" }}
-          variant="text"
-        >
-          save test
-        </Button>
-      )}
-      {showCreateTest && (
-        <Button
-          onClick={() => setShowCreateTest(false)}
-          style={{ marginTop: "30px", color: "#ccc" }}
-          variant="text"
-        >
-          cancel
-        </Button>
-      )}
+    
     </div>
   );
 };

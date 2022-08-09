@@ -9,8 +9,8 @@ export const userSlise = createSlice({
   name: "user",
   initialState,
   reducers: {
-    getUser: (state: IUser, action) => {
-      return { user: action.payload };
+    getUser: (state: IUser, {payload}) => {
+      return { user: payload };
     },
     deleteUser: () => {
       return initialState;
