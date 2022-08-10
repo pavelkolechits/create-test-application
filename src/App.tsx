@@ -8,6 +8,7 @@ import { CreateTest } from "./components/CreateTest/CreateTest";
 import { UserPageLayout } from "./components/UserPageLayout/UserPageLayout";
 import { Help } from "./components/Help/Help";
 import { SaveTestOptions } from "./components/SaveTestOptions/SaveTestOptions";
+import { StartTest } from "./components/StartTest/StartTest";
 
 import "./App.scss";
 
@@ -23,6 +24,7 @@ export const App = () => {
           <Route path="/:user/help" element={<Help />} />
           <Route path="/:user/save-options" element={<SaveTestOptions />} />
           <Route path="/:user/tests-page" element={<TestsPage />} />
+          <Route path="/:user/:test" element={<StartTest />} />
         </Route >
       </Route>
     </Routes>
