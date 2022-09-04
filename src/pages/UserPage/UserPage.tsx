@@ -15,13 +15,15 @@ import { Help } from "../../components/Help/Help";
 import { CreateTest } from "../../components/CreateTest/CreateTest";
 import { SaveTestOptions } from "../../components/SaveTestOptions/SaveTestOptions";
 import { Link } from "react-router-dom";
+import { UsersAvatar } from "../../components/Avatar/UsersAvatar";
 
 export const UserPage = () => {
   const state: IUser = useTypedSelector((state) => state.userReducer);
   const [showChat, setShowChat] = useState(false);
   const [showCreateTest, setShowCreateTest] = useState(false);
-  const { getUser } = useActions();
+  const { getUser, deleteUser } = useActions();
   const [showSaveTestOption, setShowSaveTestOption] = useState(false);
+  
 
   useEffect(() => {
     if (state.user) {
@@ -34,7 +36,6 @@ export const UserPage = () => {
               email: state.user?.email,
               photo: state.user?.photo,
               userName: state.user?.userName,
-              uid: state.user,
             });
           }
         })

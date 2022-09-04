@@ -1,7 +1,19 @@
 .container{
-    display: flex;
+  
     align-items: center;
+    border-bottom: 1px dashed rgb(55, 75, 119);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+
 }
+
 .name{
-    margin: 0 0 0 10px;
+    margin:  10px;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 }

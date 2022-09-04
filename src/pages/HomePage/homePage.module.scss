@@ -1,0 +1,52 @@
+@import "../../App.scss";
+
+
+
+.link {
+  @include LinkStyles(#1976d2);
+  margin: 0  20px 0 0 ;
+  
+}
+
+
+
+.container {
+  width: 50%;
+  height: 100%;
+  padding: 50px;
+//   font-size: 30px;
+//   font-family: Verdana, Geneva, Tahoma, sans-serif;
+//   color: #fff 10px 10px 10px 10px;
+//   position: relative;
+//   z-index: 100;
+//     font-style: italic;
+//   background: linear-gradient(
+//     90deg,
+//     rgba(228, 216, 206, .5) 28%,
+//     rgba(96, 67, 47, .5) 56%,
+//     rgba(57, 232, 249, 0.5) 74%,
+//     rgba(98, 83, 139, 0.5) 90%
+//   );
+//   background-clip: text;
+//   -webkit-text-fill-color: transparent;
+}
+.description{
+    margin: 0 0 50px 0;
+    width: 100%;
+  height: 50%;
+    font-size: 30px;
+    font-style: italic;
+    background: linear-gradient(
+      90deg,
+      rgba(228, 216, 206, .8) 28%,
+      rgba(96, 67, 47, .8) 56%,
+      rgba(57, 232, 249, 0.8) 74%,
+      rgba(98, 83, 139, 0.8) 90%
+    );
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.login-button , .signin-button {
+  margin: 0  20px 0 0 ;
+}
