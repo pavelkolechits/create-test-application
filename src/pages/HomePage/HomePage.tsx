@@ -4,9 +4,8 @@ import styles from "./homePage.module.scss";
 import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
-
 export const HomePage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.description}>
@@ -16,17 +15,24 @@ export const HomePage = () => {
       </div>
 
       <Link className={styles.link} to="/">
-        <Button variant="text">Get started</Button>
+        <Button variant="outlined">Get started</Button>
       </Link>
 
-      {/* <Link className={styles.link} to="/login"> */}
-        <Button className={styles["login-button"]}  onClick={() => navigate("/login", {state: "login"})} variant="text">Log in</Button>
-      {/* </Link> */}
+      <Button
+        sx={{ margin: "0 20px" }}
+        onClick={() => navigate("/login", { state: "login" })}
+        variant="outlined"
+      >
+        Log in
+      </Button>
 
-      {/* <Link className={styles.link} to="/login"> */}
-        <Button className={styles["signin-button"]}  onClick={() => navigate("/login", {state: "signin"})} variant="text">Sign in</Button>
-      {/* </Link> */}
-
+      <Button
+        sx={{ margin: "0 20px" }}
+        onClick={() => navigate("/login", { state: "signin" })}
+        variant="outlined"
+      >
+        Sign in
+      </Button>
     </div>
   );
 };

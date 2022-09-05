@@ -35,7 +35,6 @@ export const UserMenu: FC<IUserMenuProps> = ({
   const logout = () => {
     auth.signOut();
     deleteUser();
-    navigate("/");
   };
 
   return (
@@ -47,18 +46,24 @@ export const UserMenu: FC<IUserMenuProps> = ({
       <Button style={{ marginTop: "30px" }} onClick={showChat} variant="text">
         Chat
       </Button>
-      <Button style={{ marginTop: "30px" }} variant="text">
-        <Link to={`/${user.user?.userName}/create-test`}> New test</Link>
-      </Button>
-      <Button style={{ marginTop: "30px" }} variant="text">
-        <Link to={`/${user.user?.userName}/help`}> Help ?</Link>
-      </Button>
-      <Button style={{ marginTop: "30px" }} variant="text">
-        <Link to={`/${user.user?.userName}/tests-page`}> my tests</Link>
-      </Button>
-      <Button onClick={logout} style={{ marginTop: "30px" }} variant="text">
-        Log out
-      </Button>
+
+      <Link className={styles.link} to={`/${user.user?.userName}/create-test`}>
+        <Button variant="text">New test</Button>
+      </Link>
+
+      <Link className={styles.link} to={`/${user.user?.userName}/help`}>
+        <Button variant="text"> Help ?</Button>
+      </Link>
+
+      <Link className={styles.link} to={`/${user.user?.userName}/tests-page`}>
+        <Button variant="text"> my tests</Button>
+      </Link>
+
+      <Link className={styles.link} to="/">
+        <Button onClick={logout} variant="text">
+          Log out
+        </Button>
+      </Link>
     </div>
   );
 };

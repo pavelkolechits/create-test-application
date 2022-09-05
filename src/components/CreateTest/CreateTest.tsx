@@ -1,6 +1,6 @@
-import React, { ChangeEvent, KeyboardEvent , useRef} from "react";
+import React, { ChangeEvent, KeyboardEvent, useRef } from "react";
 import styles from "./createTest.module.scss";
-import { TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { ScrollableTabsButtonVisible } from "../ScrollableTabsButtonVisible/ScrollableTabsButtonVisible";
 import { useState } from "react";
 import { useActions } from "../../hooks/useActions";
@@ -12,15 +12,14 @@ import { SaveTestOptions } from "../SaveTestOptions/SaveTestOptions";
 import { Link } from "react-router-dom";
 import { IUser } from "../../types/user";
 
-
 export const CreateTest = () => {
   const [value, setValue] = useState("");
   const { createQuestion } = useActions();
   const [Id, setQuestionId] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const test = useTypedSelector((i) => i.testReducer.test);
   const state: IUser = useTypedSelector((state) => state.userReducer);
-  const currentTest = test.filter(i => i.questionId === Id) 
+  const currentTest = test.filter((i) => i.questionId === Id);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -40,44 +39,62 @@ export const CreateTest = () => {
 
   return (
     <div className={styles.container}>
-      <button onClick={() => navigate(-1)}>go back</button>
+      <Button variant="text" onClick={() => navigate(-1)}>
+        go back
+      </Button>
 
-      <Link to={`/${state.user?.userName}/save-options`}>save </Link>
-      
+      <Link
+        className={styles.link}
+        to={`/${state.user?.userName}/save-options`}
+      >
+        <Button color="success" variant="outlined" >
+          save test
+        </Button>
+      </Link>
+
       <ScrollableTabsButtonVisible setQuestionId={setQuestionId} />
       <TextField
+        sx={{
+          margin: "20px 0",
+        }}
         onChange={onChangeHandler}
         onKeyDown={enterHandler}
         value={value}
-        style={{ width: "100%" }}
+        style={{ width: "95%" }}
         id="standard-textarea"
         label="Enter a question"
         placeholder="question"
         multiline
         variant="standard"
+        InputLabelProps={{
+          style: { color: "#ffffff50" },
+        }}
         InputProps={{
-          className: styles.input,
+          style: {
+            color: "#ccc",
+            borderBottom: "1px solid #ffffff50",
+            fontSize: "20px",
+          },
         }}
       />
-      
+  <Button  variant="outlined" >
+          add
+        </Button>
       {currentTest.length ? (
-
         <Question
           question={currentTest[0].question}
           answers={currentTest[0].answers}
           id={currentTest[0].questionId}
         />
-      ) : (
-        
-        test.length ?
+      ) : test.length ? (
         <Question
-        question={test[0].question}
-        answers={test[0].answers}
-        id={test[0].questionId}
-      /> : ""
+          question={test[0].question}
+          answers={test[0].answers}
+          id={test[0].questionId}
+        />
+      ) : (
+        ""
       )}
-
-
     </div>
   );
 };

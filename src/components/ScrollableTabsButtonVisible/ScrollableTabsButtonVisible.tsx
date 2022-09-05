@@ -21,24 +21,28 @@ export const ScrollableTabsButtonVisible: FC<ITabsProps> = ({
   // }
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => setValue(newValue);
-  
+
   return (
     <Box
       sx={{
         flexGrow: 1,
         maxWidth: "100%",
-        bgcolor: "#ccc",
-        border: "1px solid #000",
-        marginBottom: "5px",
+        bgcolor: "inherit",
+        border: "1px solid #ffffff50",
+        margin: "5px 0 ",
         borderRadius: "3px",
       }}
     >
-      <span style={{ fontFamily: " Arial, Helvetica, sans-serif" }}>
+      <span
+        style={{
+          fontFamily: " Arial, Helvetica, sans-serif",
+          color: "#ffffff50",
+        }}
+      >
         The numbers of questions:
       </span>
 
       <Tabs
-      
         value={value}
         onChange={handleChange}
         variant="scrollable"
@@ -46,10 +50,10 @@ export const ScrollableTabsButtonVisible: FC<ITabsProps> = ({
         aria-label="visible arrows tabs example"
       >
         {questons.map((i, index) => (
-          <Tab 
+          <Tab
             key={index}
             onClick={() => setQuestionId(i.questionId)}
-            style={{ fontSize: "20px" }}
+            style={{ fontSize: "20px", color: "#ffffff50" }}
             label={index + 1}
           />
         ))}

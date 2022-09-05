@@ -25,24 +25,35 @@ export const AnswerItem: FC<IAnswerItemProps> = ({
   return (
     <div className={styles.container}>
       <Checkbox
+        sx={{ color: "#ffffff50" }}
         onChange={() => selectRightAnswer({ answerId, questionId })}
         checked={isChecked}
         color="default"
       />
       {showArea ? (
-        <EditAnswer  setShowArea={setShowArea} questionId={questionId} answerId={answerId} text={text} />
+        <EditAnswer
+          setShowArea={setShowArea}
+          questionId={questionId}
+          answerId={answerId}
+          text={text}
+        />
       ) : (
         <div className={styles.text}>{text}</div>
       )}
 
       <div className={styles["button-wrap"]}>
-        <button onClick={() => setShowArea(true)}>
-          <EditTwoToneIcon 
-        
+        <button
+          style={{ margin: " 0 5px", backgroundColor: "#ffffff10" }}
+          onClick={() => setShowArea(true)}
+        >
+          <EditTwoToneIcon
             style={{ fontSize: "25px", color: "green", cursor: "pointer" }}
           />
         </button>
-        <button onClick={() => deleteAnswer({ answerId, questionId })}>
+        <button
+          style={{ margin: " 0 5px", backgroundColor: "#ffffff10" }}
+          onClick={() => deleteAnswer({ answerId, questionId })}
+        >
           <DeleteTwoToneIcon
             style={{ fontSize: "25px", color: "red", cursor: "pointer" }}
           />

@@ -35,25 +35,27 @@ export const Question: FC<IQuestionProps> = ({ question, answers, id }) => {
         <div className={styles["question-options"]}>
           <button
             onClick={() => setShowEditArea(true)}
-            style={{ margin: "5px", cursor: "pointer" }}
+            style={{ margin: "5px", cursor: "pointer"  , backgroundColor: "#00000050"}}
           >
             <EditTwoToneIcon style={{ fontSize: "40px", color: "green" }} />
           </button>
 
           <button
             onClick={() => deleteQuestion({ questionId: id })}
-            style={{ margin: "5px" }}
+            style={{ margin: "5px" , cursor: "pointer" , backgroundColor: "#00000050" }}
           >
             <DeleteTwoToneIcon style={{ fontSize: "40px", color: "red" }} />
           </button>
-          <button
+
+          {/* <button
             onClick={() => setShowAddAnswerArea(true)}
             style={{ margin: "5px" }}
           >
             <AddCircleOutlineTwoToneIcon
               style={{ fontSize: "40px", color: "green" }}
             />
-          </button>
+          </button> */}
+
         </div>
       </div>
    

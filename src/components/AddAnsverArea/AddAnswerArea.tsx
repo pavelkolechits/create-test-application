@@ -36,17 +36,19 @@ export const AddAnswerArea: FC<IAddAnswerAreaProps> = ({
         onChange={onChangeHandler}
         onKeyDown={enterHandler}
         value={value}
-        style={{ width: "100%" }}
+        style={{ width: "95%" }}
         id="standard-textarea"
         label="Enter a answer"
         placeholder="answer"
         multiline
         variant="standard"
+        InputLabelProps={{
+          style: { color: "#ffffff50" },
+        }}
         InputProps={{
-          className: styles.input,
+          style: { color: "#ccc", borderBottom: "1px solid #ffffff50" },
         }}
       />
-      <Button onClick={() => setShowAddAnswerArea(false)}>cancel</Button>
       <Button>add</Button>
     </div>
   );

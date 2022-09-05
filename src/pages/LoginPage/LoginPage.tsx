@@ -50,33 +50,30 @@ export const LoginPage = () => {
   const loginWithEmail = () => {
     if (state === "signin") {
       createUserWithEmailAndPassword(auth, emailValue, passwordValue)
-        .then(({user}) => {
+        .then(({ user }) => {
           getUser({
             userName: userNameValue,
             photo: user?.photoURL,
             email: user?.email,
             uid: user?.uid,
-          })
-          navigate("/" + user?.displayName)
+          });
+          navigate("/" + user?.displayName);
         })
-        .catch(i => alert(i))
-        
+        .catch((i) => alert(i));
     }
     if (state === "login") {
       signInWithEmailAndPassword(auth, emailValue, passwordValue)
-      .then(({user}) => {
-        getUser({
-          userName: user?.displayName,
-          photo: user?.photoURL,
-          email: user?.email,
-          uid: user?.uid,
+        .then(({ user }) => {
+          getUser({
+            userName: user?.displayName,
+            photo: user?.photoURL,
+            email: user?.email,
+            uid: user?.uid,
+          });
+          navigate("/" + user?.displayName);
         })
-        navigate("/" + user?.displayName)
-      })
-        .catch(i => alert(i))
+        .catch((i) => alert(i));
     }
-
-
   };
 
   const textFieldStyles = {
@@ -128,6 +125,7 @@ export const LoginPage = () => {
             onClick={loginWithEmail}
             className={styles["login-button"]}
             variant="outlined"
+            sx={{ margin: "auto", color: "#fff", backgroundColor: "#212e5a75" }}
           >
             {state === "signin" ? "Sign in" : "Login"}
           </Button>
@@ -137,6 +135,7 @@ export const LoginPage = () => {
           className={styles["google-login-button"]}
           onClick={loginWithGoogle}
           variant="outlined"
+          sx={{ color: "#fff", backgroundColor: "#212e5a75" }}
         >
           {state === "signin" ? "Sign in with Google" : "Login with Google"}
         </Button>
