@@ -71,14 +71,14 @@ export const SaveTestOptions = () => {
               control={
                 <Radio onChange={onChangeRadioHandler} color="default" />
               }
-              label="Private"
+              label="Private (the test will be available only to you)"
             />
             <FormControlLabel
               value="Public"
               control={
                 <Radio onChange={onChangeRadioHandler} color="default" />
               }
-              label="Public"
+              label="Public (the test will be available to all users to solve)"
             />
           </RadioGroup>
         </FormControl>

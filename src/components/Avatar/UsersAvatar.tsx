@@ -19,9 +19,9 @@ export const UsersAvatar: FC<IAvatarProps> = ({ photo, userName }) => {
           style={{
             width: "70px",
             height: "70px",
+            display: "flex",
             borderRadius: "50%",
             backgroundColor: "green",
-            display: "flex",
             justifyContent: "center",
             alignItems: "center",
             fontSize: "50px",

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { SaveTestOptions } from "../SaveTestOptions/SaveTestOptions";
 import { Link } from "react-router-dom";
 import { IUser } from "../../types/user";
+import { isValidTest } from "../../helpers/validate";
 
 export const CreateTest = () => {
   const [value, setValue] = useState("");
@@ -39,18 +40,24 @@ export const CreateTest = () => {
 
   return (
     <div className={styles.container}>
-      <Button variant="text" onClick={() => navigate(-1)}>
+      <Button sx={{margin: "0 20px"}} variant="text" onClick={() => navigate(-1)}>
         go back
       </Button>
-
-      <Link
-        className={styles.link}
-        to={`/${state.user?.userName}/save-options`}
-      >
-        <Button color="success" variant="outlined" >
-          save test
-        </Button>
-      </Link>
+      {isValidTest(test) ? (
+        <Link
+          className={styles.link}
+          to={`/${state.user?.userName}/save-options`}
+        >
+          <Button color="success" variant="text">
+            save test
+          </Button>
+        </Link>
+      ) : (
+        <span style={{ color: "yellow" }}>
+          the test must contain at least 2 questions each question must contain
+          at least 2 possible answers and at least 1 correct!
+        </span>
+      )}
 
       <ScrollableTabsButtonVisible setQuestionId={setQuestionId} />
       <TextField
@@ -77,9 +84,7 @@ export const CreateTest = () => {
           },
         }}
       />
-  <Button  variant="outlined" >
-          add
-        </Button>
+      <Button variant="outlined">add</Button>
       {currentTest.length ? (
         <Question
           question={currentTest[0].question}
