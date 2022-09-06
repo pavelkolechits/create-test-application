@@ -5,29 +5,42 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { IUser } from "../../types/user";
 import styles from "./testsPage.module.scss";
 import { Link } from "react-router-dom";
-import { IQuestion } from "../../types/test";
+import { IQuestion, ITest } from "../../types/test";
+import { TestItem } from "../../components/TestItem/TestItem";
+import { useNavigate } from "react-router-dom";
+import { resetAnsvers } from "../../helpers/reset";
+import { useActions } from "../../hooks/useActions";
 
 export const TestsPage = () => {
+  const {getInitialTest} = useActions()
+  const navigate = useNavigate()
   const userState: IUser = useTypedSelector((i) => i.userReducer);
   const [tests, loading] = useCollectionData(
     db.collection("users/" + userState.user?.email + "/tests") as any
   );
-  const onClickHandler = () => {
 
-  }
+  const onClickHandler = (testName: string, test: IQuestion[], testId: string) => {
+    getInitialTest(resetAnsvers(test))
+    navigate(`/${userState.user?.userName}/${testName}`, {state: {testName, testId }})
+  };
 
+  
+  
   return (
     <div className={styles.container}>
-      {tests?.map((i) => (
-        <Link onClick={onClickHandler} to={`/${userState.user?.userName}/${i.testName}`}>
-          <h2
+      {tests?.map(
+        (i) => (
+          <TestItem
+            onClick={() => onClickHandler(i.testName, i.test, i.testId)}
+            testName={i.testName}
+            isPrivate={i.isPrivate}
+            createdAt={i.createdAt}
+            description={i.description}
             key={i.testId}
-            style={{ color: "#fff", backgroundColor: "#000", margin: "5px" }}
-          >
-            {i.testName}
-          </h2>
-        </Link>
-      ))}
+          />
+        )
+
+      )}
     </div>
   );
 };

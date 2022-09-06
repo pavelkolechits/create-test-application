@@ -1,10 +1,10 @@
 export interface ITest {
-  testName: string | null;
+  testName?: string | null;
   test: IQuestion[] | [];
-  testId: string | null;
-  isPrivate: false;
-  createdAt: string | null;
-  description: string | null;
+  testId?: string | null;
+  isPrivate?: false;
+  createdAt?: string | null;
+  description?: string | null;
 }
 
 export interface IQuestion {
