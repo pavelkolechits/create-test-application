@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { IQuestion, ITest } from "../../types/test";
 import { TestItem } from "../../components/TestItem/TestItem";
 import { useNavigate } from "react-router-dom";
-import { resetAnsvers } from "../../helpers/reset";
+import { resetAnswers } from "../../helpers/resetAnswers";
 import { useActions } from "../../hooks/useActions";
 
 export const TestsPage = () => {
@@ -20,7 +20,7 @@ export const TestsPage = () => {
   );
 
   const onClickHandler = (testName: string, test: IQuestion[], testId: string) => {
-    getInitialTest(resetAnsvers(test))
+    getInitialTest(resetAnswers(test))
     navigate(`/${userState.user?.userName}/${testName}`, {state: {testName, testId }})
   };
 

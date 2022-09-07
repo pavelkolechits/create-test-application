@@ -2,7 +2,7 @@
 import { IQuestion} from "../types/test";
 
 
-export const resetAnsvers = (test: IQuestion[]) => {
+export const resetAnswers = (test: IQuestion[]) => {
   return test.map(
     (question) =>
       question && {
