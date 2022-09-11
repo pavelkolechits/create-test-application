@@ -12,35 +12,40 @@ import { resetAnswers } from "../../helpers/resetAnswers";
 import { useActions } from "../../hooks/useActions";
 
 export const TestsPage = () => {
-  const {getInitialTest} = useActions()
-  const navigate = useNavigate()
+  const { getInitialTest } = useActions();
+  const navigate = useNavigate();
   const userState: IUser = useTypedSelector((i) => i.userReducer);
   const [tests, loading] = useCollectionData(
-    db.collection("users/" + userState.user?.email + "/tests") as any
+    db.collection("tests").where("author", "==", userState.user?.email) as any
   );
 
-  const onClickHandler = (testName: string, test: IQuestion[], testId: string) => {
-    getInitialTest(resetAnswers(test))
-    navigate(`/${userState.user?.userName}/${testName}`, {state: {testName, testId }})
+  const onClickHandler = (
+    testName: string,
+    test: IQuestion[],
+    testId: string
+  ) => {
+    getInitialTest(resetAnswers(test));
+    navigate(`/${userState.user?.userName}/${testId}`);
   };
 
-  
-  
   return (
-    <div className={styles.container}>
-      {tests?.map(
-        (i) => (
-          <TestItem
-            onClick={() => onClickHandler(i.testName, i.test, i.testId)}
-            testName={i.testName}
-            isPrivate={i.isPrivate}
-            createdAt={i.createdAt}
-            description={i.description}
-            key={i.testId}
-          />
-        )
-
+    <>
+      {!loading ? (
+        <div className={styles.container}>
+          {tests?.map((i) => (
+            <TestItem
+              onClick={() => onClickHandler(i.testName, i.test, i.testId)}
+              testName={i.testName}
+              isPrivate={i.isPrivate}
+              createdAt={i.createdAt}
+              description={i.description}
+              key={i.testId}
+            />
+          ))}
+        </div>
+      ) : (
+        <p style={{color: "#fff"}}>"Loading..."</p>
       )}
-    </div>
+    </>
   );
 };

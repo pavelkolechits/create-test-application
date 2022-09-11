@@ -24,7 +24,7 @@ export const App = () => {
           <Route path="/:user/help" element={<Help />} />
           <Route path="/:user/save-options" element={<SaveTestOptions />} />
           <Route path="/:user/tests-page" element={<TestsPage />} />
-          <Route path="/:user/:test" element={<StartTest />} />
+          <Route path="/:user/:testId" element={<StartTest />} />
         </Route >
       </Route>
     </Routes>

@@ -36,7 +36,10 @@ export const SaveTestOptions = () => {
     setDescriptionValue(e.target.value);
   };
   const saveTestHandler = () => {
-    db.collection("users/" + state.user?.email + "/tests")
+
+
+
+    db.collection("/tests")
       .add({
         test: test,
         testName: testNameValue,
@@ -44,6 +47,7 @@ export const SaveTestOptions = () => {
         isPrivate: labelValue === "Private",
         createdAt: new Date().getTime(),
         description: descriptionValue,
+        author: state.user?.email
       })
       .then(() => navigate(`/${state.user?.userName}/tests-page`))
       .then(() => deleteTest());

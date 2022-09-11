@@ -7,7 +7,6 @@ import { IUser } from "../../types/user";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { UserMenu } from "../../components/UserMenu/UserMenu";
 import { Chat } from "../../components/Chat/Chat";
-import { email, photo, userName } from "../../firebase";
 import { useRef } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useAuthState } from "react-firebase-hooks/auth";

@@ -19,7 +19,9 @@ export const AnswerItem: FC<IAnswerItemProps> = ({
   questionId,
   isChecked,
 }) => {
+  
   const { selectRightAnswer, deleteAnswer } = useActions();
+
   const [showArea, setShowArea] = useState(false);
 
   return (

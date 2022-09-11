@@ -1,4 +1,5 @@
 export interface ITest {
+  author?: string | null
   testName?: string | null;
   test: IQuestion[] | [];
   testId?: string | null;
