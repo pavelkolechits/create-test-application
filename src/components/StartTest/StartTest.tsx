@@ -12,35 +12,43 @@ import { resetAnswers } from "../../helpers/resetAnswers";
 import { ITest } from "../../types/test";
 import { IUser } from "../../types/user";
 import { SolveAnswerItem } from "../SolveAnswerItem/SolveAnswerItem";
+import { compareResults } from "../../helpers/compareResults";
 
 export const StartTest = () => {
-  const { getInitialTest, resetTest } = useActions();
+  const { getInitialTest, resetTest, getTest } = useActions();
   const params = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(0);
-  const initialTest = useTypedSelector((i) => i.solveTestReducer);
+  const solvedTest = useTypedSelector((i) => i.solveTestReducer);
+  const test = useTypedSelector(i => i.initialTestReducer.test)
 
   useEffect(() => {
     db.collection("tests")
       .where("testId", "==", params.testId)
       .get()
-      .then((doc) => doc.docs.forEach((i) => getInitialTest(i.data())))
+      .then((doc) =>
+        doc.docs.forEach((i) => {
+          getInitialTest(i.data());
+          getTest(i.data())
+        })
+      )
       .then(() => resetTest())
       .then(() => setIsLoaded(true));
   }, []);
 
   const start = () => {};
 
+  const getResult = () => {
+      console.log(compareResults(test, solvedTest.test))
+  };
+
   return (
     <div className={styles.container}>
       {isLoaded ? (
         <>
           <h1 style={{ color: "#fff", textAlign: "center" }}>
-            {initialTest.testName}
+            {solvedTest.testName}
           </h1>
-
-          {/* <button onClick={() => navigate(-1)}>back</button> */}
-
           <Button
             onClick={start}
             sx={{ width: "100%", margin: "0 auto" }}
@@ -49,7 +57,7 @@ export const StartTest = () => {
             start
           </Button>
 
-          {initialTest.test
+          {solvedTest.test
             .map((_, index) => index + 1)
             .map((i) => (
               <Button
@@ -62,20 +70,20 @@ export const StartTest = () => {
             ))}
           <div className={styles["test-container"]}>
             <h1 style={{ color: "#fff" }}>
-              {initialTest.test[questionNumber].question}
+              {solvedTest.test[questionNumber].question}
             </h1>
-            {initialTest.test[questionNumber].answers.map((i) => (
+            {solvedTest.test[questionNumber].answers.map((i) => (
               <SolveAnswerItem
                 answer={i.answer}
                 answerId={i.answerId}
                 isSelected={i.isCorrect}
-                questionId={initialTest.test[questionNumber].questionId}
+                questionId={solvedTest.test[questionNumber].questionId}
               />
             ))}
           </div>
 
-          {initialTest.test.length === questionNumber + 1 ? (
-            <Button sx={{ width: "100%" }} variant="text">
+          {solvedTest.test.length === questionNumber + 1 ? (
+            <Button onClick={getResult} sx={{ width: "100%" }} variant="text">
               finish
             </Button>
           ) : (

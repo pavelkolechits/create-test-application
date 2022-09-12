@@ -3,8 +3,6 @@ import { ITest, IQuestion } from "../../types/test";
 import { resetAnswers } from "../../helpers/resetAnswers";
 
 
-
-
 const initialState: ITest  = {
   testId: null,
   test: [],
@@ -20,7 +18,6 @@ export const solveTestSlice = createSlice({
   initialState,
   reducers: {
     getInitialTest: (state, { payload }) => {
-      
       return payload
     },
     resetTest: (state) => {

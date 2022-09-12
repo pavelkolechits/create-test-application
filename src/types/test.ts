@@ -10,7 +10,7 @@ export interface ITest {
 
 export interface IQuestion {
   question: string;
-  answers: IAnswer[] | [];
+  answers: IAnswer[] | [] 
   questionId: string;
 }
 
@@ -18,4 +18,7 @@ export interface IAnswer {
   answer: string;
   isCorrect: boolean;
   answerId: string;
+  isWrong?: boolean;
+  
 }
+
