@@ -3,13 +3,14 @@ import { bindActionCreators } from "@reduxjs/toolkit";
 import { userAction } from "../redux/reducers/user.slice";
 import {testAction} from '../redux/reducers/create-test.slice'
 import { solveTestAction } from "../redux/reducers/solve-test.slice";
-import { initialTestAction } from "../redux/reducers/initial-test.slice";
+
+import { compareTestAction } from "../redux/reducers/compare-test.slice";
 
 const allActions = {
     ...userAction,
     ...testAction,
     ...solveTestAction,
-    ...initialTestAction
+    ...compareTestAction
 
 }
 

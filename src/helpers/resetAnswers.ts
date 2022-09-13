@@ -15,16 +15,5 @@ export const resetAnswers = (test: IQuestion[]) => {
       }
   );
 };
-export const prepareAnswers = (test: IQuestion[]) => {
-  return test.map(
-    (question) =>
-      question && {
-        ...question,
-        answers: [
-          ...question.answers.map(
-            (answer) => answer && { ...answer, isWrong: false }
-          ),
-        ],
-      }
-  );
-};
+
+

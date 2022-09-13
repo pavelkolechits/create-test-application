@@ -12,15 +12,14 @@ import { resetAnswers } from "../../helpers/resetAnswers";
 import { ITest } from "../../types/test";
 import { IUser } from "../../types/user";
 import { SolveAnswerItem } from "../SolveAnswerItem/SolveAnswerItem";
-import { compareResults } from "../../helpers/compareResults";
+
 
 export const StartTest = () => {
-  const { getInitialTest, resetTest, getTest } = useActions();
+  const { getInitialTest, resetTest, getOriginTest, getUserVariantTest,compareTests } = useActions();
   const params = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(0);
   const solvedTest = useTypedSelector((i) => i.solveTestReducer);
-  const test = useTypedSelector(i => i.initialTestReducer.test)
 
   useEffect(() => {
     db.collection("tests")
@@ -29,7 +28,7 @@ export const StartTest = () => {
       .then((doc) =>
         doc.docs.forEach((i) => {
           getInitialTest(i.data());
-          getTest(i.data())
+          getOriginTest(i.data())
         })
       )
       .then(() => resetTest())
@@ -38,8 +37,12 @@ export const StartTest = () => {
 
   const start = () => {};
 
-  const getResult = () => {
-      console.log(compareResults(test, solvedTest.test))
+  const getResult = async () => {
+
+  //  await getOriginTest(test)
+   await  getUserVariantTest(solvedTest.test)
+   await compareTests()
+
   };
 
   return (
@@ -61,6 +64,7 @@ export const StartTest = () => {
             .map((_, index) => index + 1)
             .map((i) => (
               <Button
+              key={i}
                 variant="outlined"
                 sx={{ width: "30px", height: "30px", margin: "10px" }}
                 onClick={() => setQuestionNumber(i - 1)}

@@ -18,7 +18,7 @@ export interface IAnswer {
   answer: string;
   isCorrect: boolean;
   answerId: string;
-  isWrong?: boolean;
+
   
 }
 
