@@ -40,6 +40,7 @@ export const TestsPage = () => {
               createdAt={i.createdAt}
               description={i.description}
               key={i.testId}
+              author={i.author}
             />
           ))}
         </div>

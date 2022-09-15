@@ -1,7 +1,17 @@
-.container{
-    width: 75%;
-    min-height:100px ;
-    background-color: #ccc;
-    border: #fff;
-    margin: 10px 0;
+.container {
+  width: 100%;
+  min-height: 100px;
+  background-color: #00000090;
+  border: 1px solid #88bff7;
+  margin: 10px 0;
+  color: #ccc;
+  padding: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.test-name , .description , .created, .author{
+  color: #88bff7;
+  span {
+    // color: #ccc;
+    color: rgba(250, 239, 142, 0.808);
+  }
 }

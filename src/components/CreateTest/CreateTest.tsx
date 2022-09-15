@@ -53,16 +53,18 @@ export const CreateTest = () => {
           </Button>
         </Link>
       ) : (
-        <span style={{ color: "yellow" }}>
+        <span style={{ color: "rgba(250, 239, 142, 0.808)" }}>
           the test must contain at least 2 questions each question must contain
           at least 2 possible answers and at least 1 correct!
         </span>
       )}
 
       <ScrollableTabsButtonVisible setQuestionId={setQuestionId} />
+      <div style={{display: "flex", alignItems: "center"}}>
       <TextField
         sx={{
           margin: "20px 0",
+          
         }}
         onChange={onChangeHandler}
         onKeyDown={enterHandler}
@@ -84,7 +86,8 @@ export const CreateTest = () => {
           },
         }}
       />
-      <Button variant="outlined">add</Button>
+      <Button >add</Button>
+      </div>
       {currentTest.length ? (
         <Question
           question={currentTest[0].question}

@@ -49,7 +49,7 @@ export const AddAnswerArea: FC<IAddAnswerAreaProps> = ({
           style: { color: "#ccc", borderBottom: "1px solid #ffffff50" },
         }}
       />
-      <Button>add</Button>
+      <Button >add</Button>
     </div>
   );
 };

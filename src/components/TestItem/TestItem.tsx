@@ -6,7 +6,8 @@ interface ITestItemProps {
   description: string;
   isPrivate?: boolean;
   createdAt: number;
-  onClick?: React.MouseEventHandler<HTMLDivElement>
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  author?: string
 }
 
 export const TestItem: FC<ITestItemProps> = ({
@@ -14,14 +15,16 @@ export const TestItem: FC<ITestItemProps> = ({
   description,
   isPrivate,
   createdAt,
-  onClick
+  onClick,
+  author
 }) => {
   return (
     <div onClick={onClick} className={styles.container}>
-      <h2>{testName}</h2>
-      <p>{description}</p>
-      <p>{isPrivate ? "Private" : "Public"}</p>
-      <p>{createdAt}</p>
+      <h2 className={styles["test-name"]}>Test name: <span>{testName}</span></h2>
+      <p className={styles.description}>Description: <span>{description}</span></p>
+      <p style={{color: "rgba(250, 239, 142, 0.808)"}}>{isPrivate ? "Private" : "Public"}</p>
+      <p className={styles.created}>Created at: <span>{createdAt}</span></p>
+      <p className={styles.author}>Author: <span>{author}</span></p>
     </div>
   );
 };

@@ -20,6 +20,7 @@ export const StartTest = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(0);
   const solvedTest = useTypedSelector((i) => i.solveTestReducer);
+  const [isStarted, setIsStarted] = useState(false)
 
   useEffect(() => {
     db.collection("tests")
@@ -39,7 +40,7 @@ export const StartTest = () => {
 
   const getResult = async () => {
 
-  //  await getOriginTest(test)
+  
    await  getUserVariantTest(solvedTest.test)
    await compareTests()
 
@@ -65,13 +66,14 @@ export const StartTest = () => {
             .map((i) => (
               <Button
               key={i}
-                variant="outlined"
+                variant={questionNumber + 1 === i ? "contained" : "outlined"}
                 sx={{ width: "30px", height: "30px", margin: "10px" }}
                 onClick={() => setQuestionNumber(i - 1)}
               >
                 {i}
               </Button>
             ))}
+
           <div className={styles["test-container"]}>
             <h1 style={{ color: "#fff" }}>
               {solvedTest.test[questionNumber].question}
@@ -101,7 +103,7 @@ export const StartTest = () => {
           )}
         </>
       ) : (
-        <h1 style={{ color: "#fff" }}>Loading</h1>
+        <h1 style={{ color: "#fff" }}>Loading...</h1>
       )}
     </div>
   );

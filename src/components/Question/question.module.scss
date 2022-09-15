@@ -1,9 +1,10 @@
 .container{
     width: 100%;
     min-height: 70%;
-    // border: 1px solid #ffffff50;
+    border: 1px solid #ffffff50;
     margin: 10px 0 0 0;
     padding: 5px;
+    background-color: #00000099;
 }
 .question{
     width: 100%;
@@ -14,6 +15,8 @@
     background-color: #000;
     margin: 0 0 5px 0;
     border-radius: 3px;
+    font-weight: 700;
+    font-size: 40px;
 }
 .question-text{
     width: 80%;
@@ -23,7 +26,8 @@
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 1.5px;
-    color: #ffffff80;
+    color: #e2f383c4;
+    font-size: 25px;
 }
 .answers{
     overflow-y: scroll;
