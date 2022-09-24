@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import { useParams, useLocation } from "react-router-dom";
 
 export const LoginPage = () => {
-  const { state } = useLocation();
+  const LogInMethod = useLocation().state;
   const { getUser } = useActions();
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ export const LoginPage = () => {
   };
 
   const loginWithEmail = () => {
-    if (state === "signin") {
+    if (LogInMethod === "signin") {
       createUserWithEmailAndPassword(auth, emailValue, passwordValue)
         .then(({ user }) => {
           getUser({
@@ -61,7 +61,7 @@ export const LoginPage = () => {
         })
         .catch((i) => alert(i));
     }
-    if (state === "login") {
+    if (LogInMethod === "login") {
       signInWithEmailAndPassword(auth, emailValue, passwordValue)
         .then(({ user }) => {
           getUser({
@@ -83,63 +83,76 @@ export const LoginPage = () => {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <Link className={styles.link} to="/">
         Go back
       </Link>
-      <div className={styles.container}>
-        <div className={styles.form}>
-          {state === "signin" && (
-            <TextField
-              onChange={onChangeUserNameHandler}
-              value={userNameValue}
-              InputLabelProps={{
-                style: { color: "#fff" },
-              }}
-              sx={textFieldStyles}
-              label="Name"
-            />
-          )}
+      <div className={styles["form-container"]}>
+        {/* <div className={styles.form}> */}
+        {LogInMethod === "signin" && (
+          <TextField
+            onChange={onChangeUserNameHandler}
+            value={userNameValue}
+            InputLabelProps={{
+              style: { color: "#fff" },
+            }}
+            sx={textFieldStyles}
+            label="Name"
+          />
+        )}
 
-          <TextField
-            onChange={onChangeEmailHandler}
-            value={emailValue}
-            InputLabelProps={{
-              style: { color: "#fff" },
-            }}
-            sx={textFieldStyles}
-            label="Email"
-          />
-          <TextField
-            onChange={onChangePasswordHandler}
-            value={passwordValue}
-            InputLabelProps={{
-              style: { color: "#fff" },
-            }}
-            sx={textFieldStyles}
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-          />
+        <TextField
+          onChange={onChangeEmailHandler}
+          value={emailValue}
+          InputLabelProps={{
+            style: { color: "#fff" },
+          }}
+          sx={textFieldStyles}
+          label="Email"
+        />
+        <TextField
+          onChange={onChangePasswordHandler}
+          value={passwordValue}
+          InputLabelProps={{
+            style: { color: "#fff" },
+          }}
+          sx={textFieldStyles}
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+        />
+        <div className={styles["button-wrap"]}>
+          
           <Button
             onClick={loginWithEmail}
             className={styles["login-button"]}
             variant="outlined"
-            sx={{ margin: "auto", color: "#fff", backgroundColor: "#212e5a75" }}
+            sx={{ color: "#fff", backgroundColor: "#212e5a75" }}
           >
-            {state === "signin" ? "Sign in" : "Login"}
+            {LogInMethod === "signin" ? "Sign in" : "Login"}
           </Button>
-        </div>
 
+          <Button
+            className={styles["google-login-button"]}
+            onClick={loginWithGoogle}
+            variant="outlined"
+            sx={{ color: "#fff", backgroundColor: "#212e5a75" }}
+          >
+            Login with Google
+          </Button>
+
+        </div>
+      </div>
+      {/* 
         <Button
           className={styles["google-login-button"]}
           onClick={loginWithGoogle}
           variant="outlined"
           sx={{ color: "#fff", backgroundColor: "#212e5a75" }}
         >
-          {state === "signin" ? "Sign in with Google" : "Login with Google"}
-        </Button>
-      </div>
-    </>
+          Login with Google
+        </Button> */}
+    </div>
+    // </div>
   );
 };

@@ -26,8 +26,10 @@ export const StartTest = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(0);
   const solvedTest = useTypedSelector((i) => i.solveTestReducer);
+  const initialTest = useTypedSelector((i) => i.testReducer);
   const [isStarted, setIsStarted] = useState(false);
-  const wrongAnswers = useTypedSelector(i => i.compareTestReducer.wrongAnswers)
+  const {wrongAnswers, originTest, userVariantTest } = useTypedSelector(i => i.compareTestReducer)
+  const [showResult, setShowResult] = useState(false)
 
   useEffect(() => {
     db.collection("tests")
@@ -47,31 +49,25 @@ export const StartTest = () => {
     setIsStarted(true);
   };
 
-  // const getResult = async () => {
-
-  //  await  getUserVariantTest(solvedTest.test)
-  //  await compareTests()
-
-  // };
-
   return (
     <div className={styles.container}>
+      <div className={styles["overflow-container"]}>
       {isLoaded ? (
         <>
-          <h1 style={{ color: "#fff", textAlign: "center" }}>
+          <h1 style={{ color: "#fff", textAlign: "center", margin: "20px 0" }}>
             {solvedTest.testName}
           </h1>
           {!isStarted && (
             <Button
               onClick={start}
               sx={{ width: "100%", margin: "0 auto" }}
-              variant="outlined"
+              variant="contained"
             >
               start
             </Button>
           )}
-            <ResultsItem questions={solvedTest.test} wrongAnswers={wrongAnswers}  />
-          {isStarted && solvedTest.test
+           {showResult && <ResultsItem questions={userVariantTest} wrongAnswers={wrongAnswers} />} 
+          {isStarted && !showResult && solvedTest.test
             .map((_, index) => index + 1)
             .map((i) => (
               <Button
@@ -83,36 +79,11 @@ export const StartTest = () => {
                 {i}
               </Button>
             ))}
-          {/* 
-          <div className={styles["test-container"]}>
-            <h1 style={{ color: "#fff" }}>
-              {solvedTest.test[questionNumber].question}
-            </h1>
-            {solvedTest.test[questionNumber].answers.map((i) => (
-              <SolveAnswerItem
-                answer={i.answer}
-                answerId={i.answerId}
-                isSelected={i.isCorrect}
-                questionId={solvedTest.test[questionNumber].questionId}
-              />
-            ))}
-          </div>
 
-          {solvedTest.test.length === questionNumber + 1 ? (
-            <Button onClick={getResult} sx={{ width: "100%" }} variant="text">
-              finish
-            </Button>
-          ) : (
-            <Button
-              sx={{ width: "100%" }}
-              variant="text"
-              onClick={() => setQuestionNumber(questionNumber + 1)}
-            >
-              next
-            </Button>
-          )} */}
-          {isStarted && (
+          {isStarted && !showResult && (
             <TestItem
+              showResult={showResult}
+              setShowResult={setShowResult}
               setQuestionNumber={setQuestionNumber}
               solvedTest={solvedTest}
               questionNumber={questionNumber}
@@ -122,19 +93,28 @@ export const StartTest = () => {
       ) : (
         <h1 style={{ color: "#fff" }}>Loading...</h1>
       )}
+      </div>
     </div>
   );
 };
+
+
+
+
 interface ITestItemProps {
   questionNumber: number;
   solvedTest: ITest;
   setQuestionNumber: (questionNumber: number) => void;
+  showResult: boolean;
+  setShowResult: (isShowed: boolean) => void
 }
 
 const TestItem: FC<ITestItemProps> = ({
   questionNumber,
   solvedTest,
   setQuestionNumber,
+  setShowResult,
+  showResult
 }) => {
   const {
     getInitialTest,
@@ -146,6 +126,7 @@ const TestItem: FC<ITestItemProps> = ({
   const getResult = async () => {
     await getUserVariantTest(solvedTest.test);
     await compareTests();
+    setShowResult(true)
   };
   return (
     <>
@@ -169,8 +150,8 @@ const TestItem: FC<ITestItemProps> = ({
         </Button>
       ) : (
         <Button
-          sx={{ width: "100%" }}
-          variant="text"
+          sx={{ width: "100%" , margin: "20px 0"}}
+          variant="contained"
           onClick={() => setQuestionNumber(questionNumber + 1)}
         >
           next

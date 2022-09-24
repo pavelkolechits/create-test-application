@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { IQuestion } from "../../types/test";
 import styles from "./results.module.scss";
 import { IAnswer } from "../../types/test";
+import { AnswerItem } from "../AnswerItem/AnswerItem";
 
 interface IResultsItemProps {
   wrongAnswers: string[];
@@ -15,14 +16,29 @@ export const ResultsItem: FC<IResultsItemProps> = ({
   const wrongQuestions = questions.filter((i) =>
     i.answers.some((i) => wrongAnswers.includes(i.answerId))
   );
-  console.log(wrongQuestions);
+
+  const countPer = (questions: IQuestion[]) => {
+    console.log(wrongQuestions, questions)
+    return +(((questions.length - wrongQuestions.length) / questions.length) * 100).toFixed(0);
+  };
 
   return (
     <div className={styles.container}>
+      <p style={{ textAlign: "center", color: "#ccc" }}>
+        {countPer(questions) === 100
+          ? "Congratulations! Yor result is 100%"
+          : `Yor result is ${countPer(questions)}%`}
+      </p>
+
       {wrongQuestions.map((i) => (
         <>
-        <h2 style={{color: "#ccc"}}>{i.question}</h2>
-        <WrongAnswersList wrongAnswers={wrongAnswers} answers={i.answers}/>
+          <h2 style={{ color: "#ccc" }}>{i.question}</h2>
+
+          <WrongAnswersList
+            questionId={i.questionId}
+            wrongAnswers={wrongAnswers}
+            answers={i.answers}
+          />
         </>
       ))}
     </div>
@@ -32,20 +48,28 @@ export const ResultsItem: FC<IResultsItemProps> = ({
 interface IwrongAnswersListProps {
   answers: IAnswer[];
   wrongAnswers: string[];
- 
+  questionId: string;
 }
 
 const WrongAnswersList: FC<IwrongAnswersListProps> = ({
   answers,
   wrongAnswers,
+  questionId,
 }) => {
-
-
-
+ 
   return (
     <>
       {answers.map((i) => (
-        <li className={wrongAnswers.includes(i.answerId) ? styles.red : styles.green}>{i.answer}</li>
+        <AnswerItem
+          questionId={questionId}
+          text={i.answer}
+          key={i.answerId}
+          answerId={i.answerId}
+          isChecked={i.isCorrect}
+          hiddenIcons
+          disabledCheckBox
+          color={wrongAnswers.includes(i.answerId) ? "#ff1d1d99" : "#209120a1"}
+        />
       ))}
     </>
   );

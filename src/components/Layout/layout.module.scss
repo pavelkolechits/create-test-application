@@ -18,3 +18,12 @@
     left: 0;
     transform: rotate(180deg);
 }
+.background{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: -100;
+    top: 0;
+    left: 0;
+    background-image: url("../../img/pexels-bri-schneiter-346529.jpg");
+}

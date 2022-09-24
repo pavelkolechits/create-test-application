@@ -5,15 +5,30 @@
     top: 0;
     left: 0;
     z-index: 1000;
-    background-color: black;
+    background-color: rgb(9, 29, 31);
     padding: 10px;
+   
 }
 
 .test-container{
-    width: 800px;
+    width: 90%;
     min-height: 200px;
-    margin: 100px auto;
-    border: 1px solid #fff;
+    margin: 20px auto;
+    // border: 1px solid #fff;
     padding: 20px;
 
+}
+.overflow-container{
+    height: 100%;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+        background-color: rgb(9, 29, 31);
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgb(58, 80, 80);
+        border-radius: 2px;
+        border: 1px solid rgb(44, 46, 46);
+      }
 }

@@ -10,9 +10,12 @@ import  r1  from  './video/r1.mp4'
 export const Layout = () => {
   return (
     <>
-    <video  className={styles.video} autoPlay loop muted>
+    {/* <video  className={styles.video} autoPlay loop muted>
     <source src={ocean} type='video/mp4' />
-    </video>
+    </video> */}
+    <div className={styles.background}>
+
+    </div>
       {/* <Appbar /> */}
         <Outlet />
     </>
