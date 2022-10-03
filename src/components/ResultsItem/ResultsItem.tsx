@@ -18,7 +18,7 @@ export const ResultsItem: FC<IResultsItemProps> = ({
   );
 
   const countPer = (questions: IQuestion[]) => {
-    console.log(wrongQuestions, questions)
+  
     return +(((questions.length - wrongQuestions.length) / questions.length) * 100).toFixed(0);
   };
 

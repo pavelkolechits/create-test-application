@@ -14,7 +14,7 @@ export const HomePage = () => {
         the knowledge of your friends or colleagues
       </div>
 
-      <Link className={styles.link} to="/">
+      <Link className={styles.link} to="/get-started">
         <Button variant="outlined">Get started</Button>
       </Link>
 

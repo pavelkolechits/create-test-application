@@ -9,6 +9,7 @@ import { UserPageLayout } from "./components/UserPageLayout/UserPageLayout";
 import { Help } from "./components/Help/Help";
 import { SaveTestOptions } from "./components/SaveTestOptions/SaveTestOptions";
 import { StartTest } from "./components/StartTest/StartTest";
+import { GetStartedPage } from "./pages/GetStartedPage/GetStartedPage";
 
 import "./App.scss";
 
@@ -18,8 +19,8 @@ export const App = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/get-started" element={<GetStartedPage />} />
         <Route path="/:user" element={<UserPageLayout />} >
-          {/* <Route index element={<UserPage />} /> */}
           <Route path="/:user/create-test" element={<CreateTest />} />
           <Route path="/:user/help" element={<Help />} />
           <Route path="/:user/save-options" element={<SaveTestOptions />} />
