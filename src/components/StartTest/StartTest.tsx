@@ -13,6 +13,7 @@ import { ITest } from "../../types/test";
 import { IUser } from "../../types/user";
 import { SolveAnswerItem } from "../SolveAnswerItem/SolveAnswerItem";
 import { ResultsItem } from "../ResultsItem/ResultsItem";
+import { Loader } from "../Loader/Loader";
 
 export const StartTest = () => {
   const {
@@ -91,7 +92,7 @@ export const StartTest = () => {
           )}
         </>
       ) : (
-        <h1 style={{ color: "#fff" }}>Loading...</h1>
+        <Loader color="#ccc"/>
       )}
       </div>
     </div>

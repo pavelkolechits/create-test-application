@@ -12,6 +12,9 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useActions } from "../hooks/useActions";
 import { ToggleButtonGroup, ToggleButton } from "@mui/material";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { GoBack } from "./GoBack/GoBack";
+
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -56,20 +59,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const SearchAppBar = () => {
   const { getSearchParamsBy, getSearchParamsValue } = useActions();
-  const [value, setValue] = useState("");
+  const { searchBy, value } = useTypedSelector((i) => i.searchReducer);
+  const [inputValue, setInputValue] = useState(value);
 
   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      getSearchParamsValue(value);
+      getSearchParamsValue(inputValue);
     }
     return;
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    setInputValue(e.target.value);
   };
-  const [alignment, setAlignment] = React.useState("testName");
+  const [alignment, setAlignment] = React.useState(
+    searchBy === "testName" ? "Test Name" : searchBy
+  );
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -77,7 +83,6 @@ export const SearchAppBar = () => {
   ) => {
     setAlignment(newAlignment);
   };
- 
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -89,9 +94,10 @@ export const SearchAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            <Link style={{ textDecoration: "none", color: "#fff" }} to="/">
+            {/* <Link style={{ textDecoration: "none", color: "#fff" }} to="/">
               go back
-            </Link>
+            </Link> */}
+            <GoBack color="#fff"/>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -101,7 +107,7 @@ export const SearchAppBar = () => {
               onKeyDown={onKeyDownHandler}
               onChange={onChangeHandler}
               placeholder="Search…"
-              value={value}
+              value={inputValue}
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
@@ -113,22 +119,18 @@ export const SearchAppBar = () => {
             onChange={handleChange}
             // aria-label="Platform"
           >
-          
-            <ToggleButton
-              onClick={() => getSearchParamsBy("all")}
-              value="all"
-            >
+            <ToggleButton onClick={() => getSearchParamsBy("all")} value="all">
               all
             </ToggleButton>
             <ToggleButton
               onClick={() => getSearchParamsBy("author")}
-              value="Author"
+              value="author"
             >
               Author
             </ToggleButton>
             <ToggleButton
               onClick={() => getSearchParamsBy("description")}
-              value="Description"
+              value="description"
             >
               Description
             </ToggleButton>

@@ -11,6 +11,8 @@ import { IQuestion } from "../../types/test";
 import { resetAnswers } from "../../helpers/resetAnswers";
 import { SearchAppBar } from "../../components/SearchAppBar";
 import { filterTest } from "../../helpers/filterTests";
+import { Loader } from "../../components/Loader/Loader";
+import { GoBack } from "../../components/GoBack/GoBack";
 
 export const GetStartedPage = () => {
   const searchParams = useTypedSelector((i) => i.searchReducer);
@@ -30,22 +32,17 @@ export const GetStartedPage = () => {
 
   return (
     <div className={styles.container}>
+
+
       <SearchAppBar />
       {!loading ? (
         <div className={styles["overflow-container"]}>
           {tests
-            ?.filter((i) => {
-              if (searchParams.value !== "all") {
-                return filterTest(
-                  i.testName,
-                  i.description,
-                  i.author,
-                  searchParams.value
-                );
-              } else {
-                return i[searchParams.searchBy].includes(searchParams.value);
-              }
-            })
+            ?.filter((i) =>
+              searchParams.searchBy === "all"
+                ? filterTest(i.testName, i.description, i.author, searchParams.value)
+                : i[searchParams.searchBy].includes(searchParams.value)
+            )
             .map((i) => (
               <TestItem
                 onClick={() => onClickHandler(i.testName, i.test, i.testId)}
@@ -59,7 +56,7 @@ export const GetStartedPage = () => {
             ))}
         </div>
       ) : (
-        <p style={{ color: "#fff" }}>"Loading..."</p>
+        <Loader/>
       )}
     </div>
   );
