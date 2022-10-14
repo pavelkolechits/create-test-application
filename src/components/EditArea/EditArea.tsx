@@ -31,10 +31,10 @@ export const EditArea: FC<IEditAreaProps> = ({ setShowEditArea, value, questionI
         className={styles["edit-area"]}
       ></textarea>
       <div className={styles["button-container"]}>
-        <Button onClick={() => setShowEditArea(false)} variant="text">
+        <Button  onClick={() => setShowEditArea(false)} variant="text">
           cancel
         </Button>
-        <Button onClick={saveEdit} variant="text">save</Button>
+        <Button  onClick={saveEdit} variant="text">save</Button>
       </div>
     </div>
   );

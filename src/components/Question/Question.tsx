@@ -21,7 +21,7 @@ export const Question: FC<IQuestionProps> = ({ question, answers, id }) => {
   const { deleteQuestion } = useActions();
   return (
     <div className={styles.container}>
-      <div className={styles.question}>
+      <div style={showEditArea ? {paddingBottom: "20px"} : {}}  className={styles.question}>
         {!showEditArea ? (
           <div className={styles["question-text"]}>{question}</div>
         ) : (
@@ -47,25 +47,18 @@ export const Question: FC<IQuestionProps> = ({ question, answers, id }) => {
             <DeleteTwoToneIcon style={{ fontSize: "40px", color: "red" }} />
           </button>
 
-          {/* <button
-            onClick={() => setShowAddAnswerArea(true)}
-            style={{ margin: "5px" }}
-          >
-            <AddCircleOutlineTwoToneIcon
-              style={{ fontSize: "40px", color: "green" }}
-            />
-          </button> */}
+     
 
         </div>
       </div>
    
       <div className={styles.answers}>
-      {/* {showAddAnswerArea && ( */}
+    
         <AddAnswerArea
           questionId={id}
           setShowAddAnswerArea={setShowAddAnswerArea}
         />
-      {/* )} */}
+    
         {answers.map((i) => (
           <AnswerItem isChecked={i.isCorrect} answerId={i.answerId} questionId={id} key={i.answerId} text={i.answer} />
         ))}

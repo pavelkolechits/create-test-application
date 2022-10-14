@@ -15,21 +15,21 @@ export const HomePage = () => {
       </div>
 
       <Link className={styles.link} to="/get-started">
-        <Button variant="outlined">Get started</Button>
+        <Button variant="contained">Get started</Button>
       </Link>
 
       <Button
-        sx={{ margin: "0 20px" }}
+        sx={{ margin: "20px" }}
         onClick={() => navigate("/login", { state: "login" })}
-        variant="outlined"
+        variant="contained"
       >
         Log in
       </Button>
 
       <Button
-        sx={{ margin: "0 20px" }}
+        sx={{ margin: "20px" }}
         onClick={() => navigate("/login", { state: "signin" })}
-        variant="outlined"
+        variant="contained"
       >
         Sign in
       </Button>

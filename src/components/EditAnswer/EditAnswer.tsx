@@ -33,8 +33,10 @@ export const EditAnswer: FC<IEditAnswerProps> = ({
         value={value}
         className={styles.textarea}
       ></textarea>
-      <Button onClick={() => setShowArea(false)}>cancel</Button>
-      <Button onClick={onClickHandler}>save</Button>
+      <div className={styles["button-wrap"]}>
+        <Button onClick={() => setShowArea(false)}>cancel</Button>
+        <Button onClick={onClickHandler}>save</Button>
+      </div>
     </div>
   );
 };

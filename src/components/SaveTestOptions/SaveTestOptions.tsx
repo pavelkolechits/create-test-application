@@ -36,9 +36,6 @@ export const SaveTestOptions = () => {
     setDescriptionValue(e.target.value);
   };
   const saveTestHandler = () => {
-
-
-
     db.collection("/tests")
       .add({
         test: test,
@@ -47,7 +44,7 @@ export const SaveTestOptions = () => {
         isPrivate: labelValue === "Private",
         createdAt: new Date().getTime(),
         description: descriptionValue,
-        author: state.user?.email
+        author: state.user?.email,
       })
       .then(() => navigate(`/${state.user?.userName}/tests-page`))
       .then(() => deleteTest());
@@ -56,52 +53,116 @@ export const SaveTestOptions = () => {
   const navigate = useNavigate();
   return (
     <div className={styles.container}>
-      <div className={styles["modal-window"]}>
-        <TextField
-          onChange={onChangeTestNameHandler}
-          value={testNameValue}
-          style={{ width: "100%" }}
-          id="outlined-basic"
-          label="Test name"
-          variant="outlined"
-        />
-        <FormControl>
-          <RadioGroup
-            aria-labelledby="demo-controlled-radio-buttons-group"
-            name="controlled-radio-buttons-group"
-          >
-            <FormControlLabel
-              value="Private"
-              control={
-                <Radio onChange={onChangeRadioHandler} color="default" />
-              }
-              label="Private (the test will be available only to you)"
-            />
-            <FormControlLabel
-              value="Public"
-              control={
-                <Radio onChange={onChangeRadioHandler} color="default" />
-              }
-              label="Public (the test will be available to all users to solve)"
-            />
-          </RadioGroup>
-        </FormControl>
-        <TextField
-          id="outlined-multiline-flexible"
-          label="Description"
-          multiline
-          maxRows={4}
-          style={{ margin: "10px 0" }}
-          value={descriptionValue}
-          onChange={onChangeDescriptionHandler}
-        />
-        <Button onClick={saveTestHandler} color="success" variant="outlined">
-          save
-        </Button>
-        <Button onClick={() => navigate(-1)} color="success" variant="outlined">
-          cancel
-        </Button>
+      <div className={styles["login-box"]}>
+        <form>
+          <div className={styles["user-box"]}>
+            <input type="text" name="" required></input>
+            <label>Test name</label>
+          </div>
+          <FormControl>
+            <RadioGroup
+              aria-labelledby="demo-controlled-radio-buttons-group"
+              name="controlled-radio-buttons-group"
+            >
+              <FormControlLabel
+                sx={{ color: "#fff" }}
+                value="Private"
+                control={
+                  <Radio
+                    style={{ color: "#ccc" }}
+                    onChange={onChangeRadioHandler}
+                    color="default"
+                  />
+                }
+                label="Private (the test will be available only to you)"
+              />
+              <FormControlLabel
+                sx={{ color: "#fff" }}
+                value="Public"
+                control={
+                  <Radio
+                    style={{ color: "#ccc" }}
+                    onChange={onChangeRadioHandler}
+                    color="default"
+                  />
+                }
+                label="Public (the test will be available to all users to solve)"
+              />
+            </RadioGroup>
+          </FormControl>
+
+          <div className={styles["user-box"]}>
+            <input type="text" name="" required></input>
+            <label>Description</label>
+          </div>
+          <a onClick={saveTestHandler}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Save
+          </a>
+          <a onClick={() => navigate(-1)}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Cancel
+          </a>
+        </form>
       </div>
     </div>
+
+    // <div className={styles.container}>
+    //   <div className={styles["modal-window"]}>
+
+    //     <TextField
+    //       onChange={onChangeTestNameHandler}
+    //       value={testNameValue}
+    //       style={{ width: "100%" }}
+    //       id="outlined-basic"
+    //       label="Test name"
+    //       variant="outlined"
+    //       multiline
+    //     />
+
+    //     <FormControl>
+    //       <RadioGroup
+    //         aria-labelledby="demo-controlled-radio-buttons-group"
+    //         name="controlled-radio-buttons-group"
+    //       >
+    //         <FormControlLabel
+    //           value="Private"
+    //           control={
+    //             <Radio onChange={onChangeRadioHandler} color="default" />
+    //           }
+    //           label="Private (the test will be available only to you)"
+    //         />
+    //         <FormControlLabel
+    //           value="Public"
+    //           control={
+    //             <Radio onChange={onChangeRadioHandler} color="default" />
+    //           }
+    //           label="Public (the test will be available to all users to solve)"
+    //         />
+    //       </RadioGroup>
+    //     </FormControl>
+    //     <TextField
+    //       id="outlined-multiline-flexible"
+    //       label="Description"
+    //       multiline
+    //       maxRows={4}
+    //       style={{ margin: "10px 0" }}
+    //       value={descriptionValue}
+    //       onChange={onChangeDescriptionHandler}
+    //     />
+    //     <Button onClick={saveTestHandler} color="success" variant="outlined">
+    //       save
+    //     </Button>
+    //     <Button onClick={() => navigate(-1)} color="success" variant="outlined">
+    //       cancel
+    //     </Button>
+    //   </div>
+    // </div>
   );
 };

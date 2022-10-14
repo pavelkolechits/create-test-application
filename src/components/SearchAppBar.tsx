@@ -94,9 +94,7 @@ export const SearchAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            {/* <Link style={{ textDecoration: "none", color: "#fff" }} to="/">
-              go back
-            </Link> */}
+       
             <GoBack color="#fff"/>
           </Typography>
           <Search>

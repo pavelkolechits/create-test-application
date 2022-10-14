@@ -16,6 +16,8 @@ import { getAdditionalUserInfo } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import { useParams, useLocation } from "react-router-dom";
+import { Form } from "../../components/Form/Form";
+import { GoBack } from "../../components/GoBack/GoBack";
 
 export const LoginPage = () => {
   const LogInMethod = useLocation().state;
@@ -72,87 +74,66 @@ export const LoginPage = () => {
           });
           navigate("/" + user?.displayName);
         })
-        .catch((i) => alert(i));
+        .catch((i) => {
+          alert(i);
+        });
     }
-  };
-
-  const textFieldStyles = {
-    margin: "10px 0",
-    font: "#fff",
-    input: { caretColor: "#fff", color: "#fff" },
   };
 
   return (
     <div className={styles.container}>
-      <Link className={styles.link} to="/">
-        Go back
-      </Link>
-      <div className={styles["form-container"]}>
-        {/* <div className={styles.form}> */}
+      <div className={styles["login-box"]}>
+        <h2> {LogInMethod === "signin" ? "Sign in" : "Login"}</h2>
         {LogInMethod === "signin" && (
-          <TextField
-            onChange={onChangeUserNameHandler}
-            value={userNameValue}
-            InputLabelProps={{
-              style: { color: "#fff" },
-            }}
-            sx={textFieldStyles}
-            label="Name"
-          />
+          <div className={styles["user-box"]}>
+            <input
+              onChange={onChangeUserNameHandler}
+              value={userNameValue}
+              type="text"
+              name=""
+              required
+            ></input>
+            <label>Username</label>
+          </div>
         )}
 
-        <TextField
-          onChange={onChangeEmailHandler}
-          value={emailValue}
-          InputLabelProps={{
-            style: { color: "#fff" },
-          }}
-          sx={textFieldStyles}
-          label="Email"
-        />
-        <TextField
-          onChange={onChangePasswordHandler}
-          value={passwordValue}
-          InputLabelProps={{
-            style: { color: "#fff" },
-          }}
-          sx={textFieldStyles}
-          id="outlined-password-input"
-          label="Password"
-          type="password"
-        />
-        <div className={styles["button-wrap"]}>
-          
-          <Button
-            onClick={loginWithEmail}
-            className={styles["login-button"]}
-            variant="outlined"
-            sx={{ color: "#fff", backgroundColor: "#212e5a75" }}
-          >
+        <form>
+          <div className={styles["user-box"]}>
+            <input
+              onChange={onChangeEmailHandler}
+              value={emailValue}
+              type="text"
+              name=""
+              required
+            ></input>
+            <label>Email</label>
+          </div>
+          <div className={styles["user-box"]}>
+            <input
+              onChange={onChangePasswordHandler}
+              value={passwordValue}
+              type="password"
+              name=""
+              required
+            ></input>
+            <label>Password</label>
+          </div>
+          <a onClick={loginWithEmail}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
             {LogInMethod === "signin" ? "Sign in" : "Login"}
-          </Button>
-
-          <Button
-            className={styles["google-login-button"]}
-            onClick={loginWithGoogle}
-            variant="outlined"
-            sx={{ color: "#fff", backgroundColor: "#212e5a75" }}
-          >
+          </a>
+          <a onClick={loginWithGoogle}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
             Login with Google
-          </Button>
-
-        </div>
+          </a>
+        </form>
       </div>
-      {/* 
-        <Button
-          className={styles["google-login-button"]}
-          onClick={loginWithGoogle}
-          variant="outlined"
-          sx={{ color: "#fff", backgroundColor: "#212e5a75" }}
-        >
-          Login with Google
-        </Button> */}
     </div>
-    // </div>
   );
 };

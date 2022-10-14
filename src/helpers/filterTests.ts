@@ -10,7 +10,6 @@ export const filterTest = (
   email: string,
   searchParams: string
 ) => {
-    console.log(testName, description, email)
   return (
     testName.includes(searchParams) ||
     description.includes(searchParams) ||
