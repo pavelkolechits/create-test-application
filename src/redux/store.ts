@@ -4,6 +4,7 @@ import { testReducer } from "./reducers/create-test.slice";
 import { solveTestReducer } from "./reducers/solve-test.slice";
 import { compareTestReducer } from "./reducers/compare-test.slice";
 import { searchReducer } from "./reducers/search-data.slice";
+import { sortReducer } from "./reducers/sort-slice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     solveTestReducer,
     compareTestReducer,
     searchReducer,
+    sortReducer
   },
 });
 

@@ -9,6 +9,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Message } from "../Message/Message";
 import firebase from "firebase/compat/app";
 import { style } from "@mui/system";
+import {getDateObject} from "../../helpers/getDateObject"
 
 interface IUserMessage {
   user: string;
@@ -31,15 +32,15 @@ export const Chat: FC<IChatProps> = ({ setShowChat }) => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
   };
-  const getDate = (date: number) => {
-    return {
-      day: new Date(date).getDay(),
-      hour: new Date(date).getHours(),
-      minutes: new Date(date).getMinutes(),
-      month: new Date(date).getMonth(),
-      dayOfMonth: new Date(date).getUTCDate(),
-    };
-  };
+  // const getDate = (date: number) => {
+  //   return {
+  //     day: new Date(date).getDay(),
+  //     hour: new Date(date).getHours(),
+  //     minutes: new Date(date).getMinutes(),
+  //     month: new Date(date).getMonth(),
+  //     dayOfMonth: new Date(date).getUTCDate(),
+  //   };
+  // };
   const closeChat = () => {
     setCloseAnimation(true)
     setTimeout(() => {
@@ -83,7 +84,7 @@ export const Chat: FC<IChatProps> = ({ setShowChat }) => {
               userName={i.user}
               message={i.text}
               isYou={state.user?.email === i.email}
-              createdAt={getDate(i.createdAt)}
+              createdAt={getDateObject(i.createdAt)}
             />
           ))}
         </div>

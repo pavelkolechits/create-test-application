@@ -32,14 +32,14 @@ export const Message: FC<IMessageProps> = ({
             </div>
           </div>
         </div>
-        <TimeStamp time={createdAt} />
+        <TimeStamp className={styles["time-stamp"]} time={createdAt} />
       </div>
     );
   }
   
     return (
       <div className={styles.container}>
-        <TimeStamp time={createdAt} />
+        <TimeStamp className={styles["time-stamp"]} time={createdAt} />
         <div className={styles["message-item-right"]}>
           <div className={styles["avatar-right"]}>
             <div className={styles["message-wrap"]}>

@@ -14,7 +14,8 @@ import { useActions } from "../hooks/useActions";
 import { ToggleButtonGroup, ToggleButton } from "@mui/material";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { GoBack } from "./GoBack/GoBack";
-
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,9 +59,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const SearchAppBar = () => {
-  const { getSearchParamsBy, getSearchParamsValue } = useActions();
-  const { searchBy, value } = useTypedSelector((i) => i.searchReducer);
-  const [inputValue, setInputValue] = useState(value);
+  const { getSearchParamsBy, getSearchParamsValue, getSortParams } = useActions();
+  const { searchReducer, sortReducer } = useTypedSelector((i) => i);
+  const [inputValue, setInputValue] = useState(searchReducer.value);
+  
 
   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -74,7 +76,7 @@ export const SearchAppBar = () => {
     setInputValue(e.target.value);
   };
   const [alignment, setAlignment] = React.useState(
-    searchBy === "testName" ? "Test Name" : searchBy
+    searchReducer.searchBy === "testName" ? "Test Name" : searchReducer.searchBy
   );
 
   const handleChange = (
@@ -94,8 +96,7 @@ export const SearchAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-       
-            <GoBack color="#fff"/>
+            <GoBack color="#fff" />
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -109,6 +110,14 @@ export const SearchAppBar = () => {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
+          <div style={{ display: "flex" }}>
+            <button onClick={() => getSortParams({sortBy: "down"})} style={{ margin: "0 10px" }}>
+              <ExpandLessIcon sx={sortReducer.sortBy === "down" ? {color: "blue"} : {} } />
+            </button>
+            <button onClick={() => getSortParams({sortBy: "up"})} >
+              <ExpandMoreIcon sx={sortReducer.sortBy === "up" ? {color: "blue"} : {} }/>
+            </button>
+          </div>
           <ToggleButtonGroup
             sx={{ margin: "0 10px", backgroundColor: "#fff" }}
             color="primary"

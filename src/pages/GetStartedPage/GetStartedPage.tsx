@@ -15,7 +15,8 @@ import { Loader } from "../../components/Loader/Loader";
 import { GoBack } from "../../components/GoBack/GoBack";
 
 export const GetStartedPage = () => {
-  const searchParams = useTypedSelector((i) => i.searchReducer);
+  const { searchReducer, sortReducer } = useTypedSelector((i) => i);
+
   const [tests, loading] = useCollectionData(db.collection("tests") as any);
   const { getInitialTest } = useActions();
   const navigate = useNavigate();
@@ -32,16 +33,24 @@ export const GetStartedPage = () => {
 
   return (
     <div className={styles.container}>
-
-
       <SearchAppBar />
       {!loading ? (
         <div className={styles["overflow-container"]}>
           {tests
             ?.filter((i) =>
-              searchParams.searchBy === "all"
-                ? filterTest(i.testName, i.description, i.author, searchParams.value)
-                : i[searchParams.searchBy].includes(searchParams.value)
+              searchReducer.searchBy === "all"
+                ? filterTest(
+                    i.testName,
+                    i.description,
+                    i.author,
+                    searchReducer.value
+                  )
+                : i[searchReducer.searchBy].includes(searchReducer.value)
+            )
+            .sort((a, b) =>
+              sortReducer.sortBy === "up"
+                ? a.createdAt - b.createdAt
+                : b.createdAt - a.createdAt
             )
             .map((i) => (
               <TestItem
@@ -56,7 +65,7 @@ export const GetStartedPage = () => {
             ))}
         </div>
       ) : (
-        <Loader/>
+        <Loader />
       )}
     </div>
   );

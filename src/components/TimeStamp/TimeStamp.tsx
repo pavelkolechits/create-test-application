@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC , HTMLAttributes } from "react";
 
 interface ITimeStampProps {
   time: {
@@ -8,6 +8,7 @@ interface ITimeStampProps {
     month: number;
     dayOfMonth: number;
   };
+  
 }
 
 const formatTime = (time: number) => {
@@ -20,17 +21,17 @@ const getDate = (day: number, month: number) => {
     : formatTime(day) + "." + formatTime(month);
 };
 
-export const TimeStamp: FC<ITimeStampProps> = ({ time }) => {
+export const TimeStamp: FC<ITimeStampProps & HTMLAttributes<HTMLDivElement>> = ({ time, className }) => {
   const date = `${formatTime(time.hour)}:${formatTime(time.minutes)}  ${getDate(
     time.dayOfMonth,
     time.month
   )}`;
 
   return (
-    <div
-      style={{ padding: "2px", fontSize: "10px", width: "19%", color: "#ccc" }}
+    <span className={className}
+  
     >
       {date}
-    </div>
+    </span>
   );
 };
